@@ -3,7 +3,7 @@ import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 //import { createStackNavigator } from '@react-navigation/stack';
 
 
-const acoesPesquisa = () => {
+const AcoesPesquisa = () => {
   return (
     <View style={estilos.container}>
       <View style={estilos.containerCards}>
@@ -76,4 +76,4 @@ const estilos = StyleSheet.create({
   }
 });
 
-export default acoesPesquisa;
+export default AcoesPesquisa;

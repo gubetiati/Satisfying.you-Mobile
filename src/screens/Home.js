@@ -67,7 +67,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 50
+    paddingTop: 20
     
   },
   containerCards: {
@@ -86,8 +86,8 @@ const estilos = StyleSheet.create({
     overflow: 'hidden', 
   },
   image: {
-    height: '50%', 
-    width: '50%', 
+    height: '40%', 
+    width: '40%', 
     marginBottom: 10,
   },
   tituloCard: {
@@ -116,6 +116,8 @@ const estilos = StyleSheet.create({
   },
   input: {
     flex: 1,
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 17,
   },
   containerHeader: {
     backgroundColor: '#372775',
