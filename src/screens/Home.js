@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Image, Text, TextInput } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Image, Text, TextInput, Button } from 'react-native';
 import Header from '../../assets/components/Header'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 //import { createStackNavigator } from '@react-navigation/stack';
@@ -48,10 +48,19 @@ const Home = () => {
             <Text style={estilos.tituloCard}>MENINAS CPU </Text>
             <Text style={estilos.textoData}>01/04/2022</Text>
             </View>
-            
         </TouchableOpacity>
-        
       </View>
+
+      <View style={{width: '95%', marginTop: 20, height: 50, justifyContent: 'center'}}>
+        <TouchableOpacity
+          onPress={() => {
+          }}
+          style={estilos.botao}
+        >
+        <Text style={estilos.textoBotao}>NOVA PESQUISA</Text>
+        </TouchableOpacity>
+      </View>
+      
     </View>
   );
 };
@@ -64,62 +73,72 @@ const estilos = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 20
-    
+    paddingTop: 20,
   },
   containerCards: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    width: '95%',
+    justifyContent: 'space-between'
   },
   card: {
-    width: 200,
-    height: 200,
+    width: 180,
+    height: 150,
     backgroundColor: 'white',
     borderRadius: 10,
-    marginHorizontal: 20,
+    //marginHorizontal: 57,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden', 
   },
   image: {
-    height: '40%', 
+    height: '43%', 
     width: '40%', 
     marginBottom: 10,
   },
   tituloCard: {
-    fontSize: 25,
+    fontSize: 22,
     color: '#3F92C5',
     fontFamily: 'AveriaLibre-Regular'
   },
   textoData: {
     fontFamily: 'AveriaLibre-Regular',
-    fontSize: 16
+    fontSize: 14
   },
   barraPesquisa: {
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 2,
-    height: 40,
-    width: '90%',
-    marginBottom: 20,
+    height: 35,
+    width: '95%',
+    marginBottom: 10,
     paddingLeft: 10,
+  },
+  input: {
+    flex: 1,
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 15
   },
   icon: {
     width: 20,
     height: 20,
     marginRight: 10,
   },
-  input: {
-    flex: 1,
-    fontFamily: 'AveriaLibre-Regular',
-    fontSize: 17,
-  },
   containerHeader: {
     backgroundColor: '#372775',
     flex: 0.5,
     flexDirection: 'row',
+  },
+  botao: {
+    backgroundColor: '#37BD6D',
+    height: 40
+  },
+  textoBotao: {
+    color: 'white', 
+    fontSize: 22, 
+    textAlign: 'center',
+    fontFamily: 'AveriaLibre-Regular',
+    paddingTop: 5 
   }
 });
 

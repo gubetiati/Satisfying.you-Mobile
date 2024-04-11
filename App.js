@@ -15,26 +15,40 @@ const Stack = createStackNavigator()
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-      <SafeAreaView style={{flex: 1}}>
-      <View style={{alignItems: 'center'}}>
-         <Text style={estilos.textoEmail}>usuario@dominio.com</Text>
-         <Divider 
-         style={{width: '82%', alignItems: 'center', height: 1}}
-         theme={{ colors: { primary: 'white' } }}
-         />
-      </View>
-     
-        <DrawerItemList {...props} />
-        <View style={estilos.textoDrawer} />
 
+      <SafeAreaView style={{flex: 1}}>
+
+        <View style={{alignItems: 'center'}}>
+          <Text style={estilos.textoEmail}>usuario@dominio.com</Text>
+          <Divider 
+          style={estilos.divider}
+          theme={{ colors: { primary: 'white' } }}
+          />
+        </View>
+
+        {/*Por enquanto está navegando para AcoesPesquisa*/}
+        <DrawerItem
+          label={() => (
+            <View style={estilos.itemDrawer}>
+              
+              <Icon name="description" 
+                size={30} 
+                color="white" 
+                style={{ marginRight: 10 }} />
+
+              <Text style={estilos.labelDrawer}>Pesquisas</Text>
+            </View>
+          )}
+          onPress={() => props.navigation.navigate('AcoesPesquisa')}
+        />
+      
+      </SafeAreaView>
       <View style={estilos.footer}>
         <Pressable style={{flexDirection: 'row'}}>
             <Icon name="logout" size={30} color="white" />
-            <Text style={{color: 'white', fontSize: 20, fontFamily: 'AveriaLibre-Regular', marginLeft: 10, marginTop: 2}}>Sair</Text>
+            <Text style={estilos.itemSair}>Sair</Text>
         </Pressable>
       </View>
-        
-      </SafeAreaView>
     </DrawerContentScrollView>
   );
 }
@@ -43,28 +57,33 @@ const App = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator 
-      screenOptions={{
-        drawerStyle: {
-          backgroundColor: '#2B1D62', // Sua cor de fundo aqui
-        },
-        drawerActiveTintColor: 'white',
-        drawerInactiveTintColor: 'white'
-      }}
-      drawerContent={props => <CustomDrawerContent {...props} />}>
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#2B1D62',
+          },
+          drawerActiveTintColor: 'white',
+          drawerInactiveTintColor: 'white',
+          labelStyle: {
+            fontFamily: 'AveriaLibre-Regular'
+          },
+        }}
+        drawerContent={props => <CustomDrawerContent {...props} />}
+      >
         <Drawer.Screen 
           name="Home" 
           component={Home} 
-          options= {estilos.header}
+          options={estilos.header}
         />
         <Drawer.Screen 
           name="AcoesPesquisa" 
           component={AcoesPesquisa}
-          options = {{headerShown: false}} 
+          options={{ headerShown: false }} 
         />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
+
 
 const estilos = StyleSheet.create({
     header: {
@@ -78,21 +97,36 @@ const estilos = StyleSheet.create({
         headerTintColor:'white'
     },
     textoEmail: {
-      fontSize: 20,
+      fontSize: 25,
       color: 'white',
       margin: 10,
-      fontFamily: 'AveriaLibre-Regular'
-    },
-    textoDrawer: {
-      fontSize: 40,
-      color: 'white',
-      flex: 1,
-      fontFamily: 'AveriaLibre-Regular'
+      fontFamily: 'AveriaLibre-Regular',
     },
     footer: {
-      display: 'flex',
-      paddingTop: 140,
-      marginLeft: 15
+      flex: 1,
+      marginLeft: 30,
+      marginTop: 180
+    },
+    divider: {
+      width: '82%', 
+      alignItems: 'center', 
+      height: 1
+    },
+    labelDrawer: {
+      fontFamily: 'AveriaLibre-Regular', 
+      color: 'white', 
+      fontSize: 25 
+    },
+    itemDrawer: {
+      flexDirection: 'row', 
+      alignItems: 'center', 
+      marginLeft: 10 
+    },
+    itemSair: {
+      color: 'white', 
+      fontSize: 25, 
+      fontFamily: 'AveriaLibre-Regular', 
+      marginLeft: 10, 
     }
 })
 
