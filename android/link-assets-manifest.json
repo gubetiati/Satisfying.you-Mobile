@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/components/Header.js",
+      "sha1": "0e5775a5fbda47464383046fd649a37eb9e47279"
+    },
+    {
       "path": "assets/fonts/AveriaLibre-Bold.ttf",
       "sha1": "0ce880962aec19fc6fbbec5d9d037fa8d7ad121c"
     },
@@ -24,6 +28,34 @@
     {
       "path": "assets/fonts/AveriaLibre-Regular.ttf",
       "sha1": "7c2790a81e8c245f2bb9ba14f2e50f984b28f73a"
+    },
+    {
+      "path": "assets/images/coletar.png",
+      "sha1": "5abd763d3251291fe054aa1194f648bf48e6a37f"
+    },
+    {
+      "path": "assets/images/meninas.png",
+      "sha1": "79306aee7e70786458ea81c094515cd3651fa452"
+    },
+    {
+      "path": "assets/images/modificar.png",
+      "sha1": "531a251707b15752eb1a25050bdaef8a2c22ae7c"
+    },
+    {
+      "path": "assets/images/relatorio.png",
+      "sha1": "87014fe9a2e4ed46b9e6bf1c12faeab46db333e6"
+    },
+    {
+      "path": "assets/images/search.png",
+      "sha1": "9bfa5edb6ab047be02f57426133078abd8d40431"
+    },
+    {
+      "path": "assets/images/secomp.png",
+      "sha1": "3c6616719ee9d2b23c6509e19cd4d38411efe940"
+    },
+    {
+      "path": "assets/images/ubuntu.png",
+      "sha1": "ecfc621ff918912c2146939ed71a4fb09d737238"
     }
   ]
 }

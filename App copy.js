@@ -24,14 +24,10 @@ function CustomDrawerContent(props) {
         {/* Adicionando uma divisão */}
         <View style={{height: 1, backgroundColor: 'gray'}} />
 
-      <View style={estilos.footer}>
-        <Pressable style={{flexDirection: 'row'}}>
-            <Icon name="logout" size={30} color="white" />
-            <Text style={{color: 'white', fontSize: 20, fontFamily: 'AveriaLibre-Regular', marginLeft: 10, marginTop: 2}}>Sair</Text>
+        <Pressable>
+          <Icon name="logout" size={30} color="#900" />
+          <Text style={{color: 'white'}}>Sair</Text>
         </Pressable>
-      </View>
-        
-
       </SafeAreaView>
     </DrawerContentScrollView>
   );
@@ -76,19 +72,14 @@ const estilos = StyleSheet.create({
         headerTintColor:'white'
     },
     textoEmail: {
-      fontSize: 20,
+      fontSize: 15,
       color: 'white',
-      margin: 10,
-      fontFamily: 'AveriaLibre-Regular'
+      margin: 10
     },
     textoDrawer: {
-      fontSize: 40,
+      fontSize: 20,
       color: 'white',
-      flex: 1,
-      fontFamily: 'AveriaLibre-Regular'
-    },
-    footer: {
-      paddingTop: 20
+      flex: 1
     }
 })
 

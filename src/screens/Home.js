@@ -9,10 +9,7 @@ const Home = () => {
   return (
     <View style={estilos.container}>
      <View style={estilos.barraPesquisa}>
-        <Image
-          source={require('../../assets/images/search.png')}
-          style={estilos.icon}
-        />
+        <Icon name="search" size={30} color="gray"></Icon>
         <TextInput
           style={estilos.input}
           placeholder="Insira o termo de busca..."

@@ -20,6 +20,14 @@
 		D4BECC829C1B422AA469A16E /* AveriaLibre-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0114FA5F396E48958576C6E3 /* AveriaLibre-Light.ttf */; };
 		4D4A29AB9D904812908A26BA /* AveriaLibre-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB83FD7B65FE4CB1B98EDA9F /* AveriaLibre-LightItalic.ttf */; };
 		74A26210651847769193A575 /* AveriaLibre-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5061102802E14D52921CF38C /* AveriaLibre-Regular.ttf */; };
+		40FBD10189914BD988D6D861 /* Header.js in Resources */ = {isa = PBXBuildFile; fileRef = 430A9BF72E0142069F3CE201 /* Header.js */; };
+		CF9487EEA4A5413389A01884 /* coletar.png in Resources */ = {isa = PBXBuildFile; fileRef = C751B00375F64A4986B39CCE /* coletar.png */; };
+		947D192F02B341A2ACB6780D /* meninas.png in Resources */ = {isa = PBXBuildFile; fileRef = E770D8C866D54CB2AC43E483 /* meninas.png */; };
+		A4592650742B4164AF4AD743 /* modificar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6BF03AB9534BA59199C68B /* modificar.png */; };
+		2C5AF5CF3C964276834B1EF6 /* relatorio.png in Resources */ = {isa = PBXBuildFile; fileRef = 14405F4897D04AAA963C93B1 /* relatorio.png */; };
+		BFE1AB09FE2340F6881757E8 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = C1736311FE354901A7B6BAF8 /* search.png */; };
+		BC5FD73C908A4B7B97CE3FA4 /* secomp.png in Resources */ = {isa = PBXBuildFile; fileRef = FB17EB63BC2C40DEAE24CA62 /* secomp.png */; };
+		E88432D42696453EB077C6C2 /* ubuntu.png in Resources */ = {isa = PBXBuildFile; fileRef = 058307F8A79346D58C3E5711 /* ubuntu.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +64,14 @@
 		0114FA5F396E48958576C6E3 /* AveriaLibre-Light.ttf */ = {isa = PBXFileReference; name = "AveriaLibre-Light.ttf"; path = "../assets/fonts/AveriaLibre-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FB83FD7B65FE4CB1B98EDA9F /* AveriaLibre-LightItalic.ttf */ = {isa = PBXFileReference; name = "AveriaLibre-LightItalic.ttf"; path = "../assets/fonts/AveriaLibre-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		5061102802E14D52921CF38C /* AveriaLibre-Regular.ttf */ = {isa = PBXFileReference; name = "AveriaLibre-Regular.ttf"; path = "../assets/fonts/AveriaLibre-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		430A9BF72E0142069F3CE201 /* Header.js */ = {isa = PBXFileReference; name = "Header.js"; path = "../assets/components/Header.js"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C751B00375F64A4986B39CCE /* coletar.png */ = {isa = PBXFileReference; name = "coletar.png"; path = "../assets/images/coletar.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E770D8C866D54CB2AC43E483 /* meninas.png */ = {isa = PBXFileReference; name = "meninas.png"; path = "../assets/images/meninas.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3A6BF03AB9534BA59199C68B /* modificar.png */ = {isa = PBXFileReference; name = "modificar.png"; path = "../assets/images/modificar.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		14405F4897D04AAA963C93B1 /* relatorio.png */ = {isa = PBXFileReference; name = "relatorio.png"; path = "../assets/images/relatorio.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C1736311FE354901A7B6BAF8 /* search.png */ = {isa = PBXFileReference; name = "search.png"; path = "../assets/images/search.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FB17EB63BC2C40DEAE24CA62 /* secomp.png */ = {isa = PBXFileReference; name = "secomp.png"; path = "../assets/images/secomp.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		058307F8A79346D58C3E5711 /* ubuntu.png */ = {isa = PBXFileReference; name = "ubuntu.png"; path = "../assets/images/ubuntu.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +186,14 @@
 				0114FA5F396E48958576C6E3 /* AveriaLibre-Light.ttf */,
 				FB83FD7B65FE4CB1B98EDA9F /* AveriaLibre-LightItalic.ttf */,
 				5061102802E14D52921CF38C /* AveriaLibre-Regular.ttf */,
+				430A9BF72E0142069F3CE201 /* Header.js */,
+				C751B00375F64A4986B39CCE /* coletar.png */,
+				E770D8C866D54CB2AC43E483 /* meninas.png */,
+				3A6BF03AB9534BA59199C68B /* modificar.png */,
+				14405F4897D04AAA963C93B1 /* relatorio.png */,
+				C1736311FE354901A7B6BAF8 /* search.png */,
+				FB17EB63BC2C40DEAE24CA62 /* secomp.png */,
+				058307F8A79346D58C3E5711 /* ubuntu.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -276,6 +300,14 @@
 				D4BECC829C1B422AA469A16E /* AveriaLibre-Light.ttf in Resources */,
 				4D4A29AB9D904812908A26BA /* AveriaLibre-LightItalic.ttf in Resources */,
 				74A26210651847769193A575 /* AveriaLibre-Regular.ttf in Resources */,
+				40FBD10189914BD988D6D861 /* Header.js in Resources */,
+				CF9487EEA4A5413389A01884 /* coletar.png in Resources */,
+				947D192F02B341A2ACB6780D /* meninas.png in Resources */,
+				A4592650742B4164AF4AD743 /* modificar.png in Resources */,
+				2C5AF5CF3C964276834B1EF6 /* relatorio.png in Resources */,
+				BFE1AB09FE2340F6881757E8 /* search.png in Resources */,
+				BC5FD73C908A4B7B97CE3FA4 /* secomp.png in Resources */,
+				E88432D42696453EB077C6C2 /* ubuntu.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
