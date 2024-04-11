@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, SafeAreaView, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Divider } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Home from './src/screens/Home';
 import AcoesPesquisa from './src/screens/AcoesPesquisa';
@@ -15,14 +16,16 @@ function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <SafeAreaView style={{flex: 1}}>
-        <Text style={estilos.textoEmail}>usuario@dominio.com</Text>
-        <View style={{height: 1, backgroundColor: 'white'}} />
-
+      <View style={{alignItems: 'center'}}>
+         <Text style={estilos.textoEmail}>usuario@dominio.com</Text>
+         <Divider 
+         style={{width: '82%', alignItems: 'center', height: 1}}
+         theme={{ colors: { primary: 'white' } }}
+         />
+      </View>
+     
         <DrawerItemList {...props} />
         <View style={estilos.textoDrawer} />
-
-        {/* Adicionando uma divisão */}
-        <View style={{height: 1, backgroundColor: 'gray'}} />
 
       <View style={estilos.footer}>
         <Pressable style={{flexDirection: 'row'}}>
@@ -31,7 +34,6 @@ function CustomDrawerContent(props) {
         </Pressable>
       </View>
         
-
       </SafeAreaView>
     </DrawerContentScrollView>
   );
@@ -88,7 +90,9 @@ const estilos = StyleSheet.create({
       fontFamily: 'AveriaLibre-Regular'
     },
     footer: {
-      paddingTop: 20
+      display: 'flex',
+      paddingTop: 140,
+      marginLeft: 15
     }
 })
 

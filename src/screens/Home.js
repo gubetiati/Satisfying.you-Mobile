@@ -68,16 +68,16 @@ const estilos = StyleSheet.create({
     
   },
   containerCards: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   card: {
     width: 200,
     height: 200,
     backgroundColor: 'white',
     borderRadius: 10,
-    marginBottom: 20,
+    marginHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden', 

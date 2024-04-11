@@ -51,7 +51,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'column',
   },
   containerCards: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -60,7 +60,7 @@ const estilos = StyleSheet.create({
     height: 200,
     backgroundColor: '#2B1D62',
     borderRadius: 6,
-    marginBottom: 20,
+    marginHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center' 
   },
