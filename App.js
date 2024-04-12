@@ -4,13 +4,13 @@ import { View, Text, StyleSheet, SafeAreaView, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Divider } from 'react-native-paper'
+import { Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Home from './src/screens/Home';
 import AcoesPesquisa from './src/screens/AcoesPesquisa';
 
-const Drawer = createDrawerNavigator()
-const Stack = createStackNavigator()
+const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 function CustomDrawerContent(props) {
   return (
@@ -26,7 +26,6 @@ function CustomDrawerContent(props) {
           />
         </View>
 
-        {/*Por enquanto está navegando para AcoesPesquisa*/}
         <DrawerItem
           label={() => (
             <View style={estilos.itemDrawer}>
@@ -53,6 +52,45 @@ function CustomDrawerContent(props) {
   );
 }
 
+function HomeStackScreen(){
+  return(
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function AcoesPesquisaStackScreen(){
+  return(
+    <Stack.Navigator>
+      <Stack.Screen
+        name="AcoesPesquisa"
+        component={AcoesPesquisa}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#2B1D62',
+          },
+          headerTitle: 'Pesquisa',
+          headerTintColor:'white',
+          headerLeft: () => (
+            <Pressable
+              onPress={() => navigation.goBack()}
+              style={{ marginLeft: 10 }}
+            >
+              <Icon name="arrow-back" size={30} color="white" />
+            </Pressable>
+          )
+        })}
+      />
+    </Stack.Navigator>
+  )
+}
+
 const App = () => {
   return (
     <NavigationContainer>
@@ -71,12 +109,12 @@ const App = () => {
       >
         <Drawer.Screen 
           name="Home" 
-          component={Home} 
-          options={estilos.header}
+          component={HomeStackScreen} 
+          options={estilos.headerDrawer}
         />
         <Drawer.Screen 
           name="AcoesPesquisa" 
-          component={AcoesPesquisa}
+          component={AcoesPesquisaStackScreen}
           options={{ headerShown: false }} 
         />
       </Drawer.Navigator>
@@ -86,7 +124,7 @@ const App = () => {
 
 
 const estilos = StyleSheet.create({
-    header: {
+    headerDrawer: {
         headerShown: true,
         headerStyle: {
             backgroundColor: '#2B1D62',
@@ -105,7 +143,7 @@ const estilos = StyleSheet.create({
     footer: {
       flex: 1,
       marginLeft: 30,
-      marginTop: 180
+      marginTop: 170
     },
     divider: {
       width: '82%', 

@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Image, Text, TextInput, Button } from 'react-native';
-import Header from '../../assets/components/Header'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-//import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 const Home = () => {
+  const navigation = useNavigation()
+
   return (
     <View style={estilos.container}>
      <View style={estilos.barraPesquisa}>
@@ -17,7 +19,7 @@ const Home = () => {
       </View>
         
       <View style={estilos.containerCards}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('AcoesPesquisa')}>
           <View style={estilos.card}>
             <Image
                 source={require('../../assets/images/secomp.png')}
@@ -28,7 +30,7 @@ const Home = () => {
           
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('AcoesPesquisa')}>
           <View style={estilos.card}>
             <Image
                   source={require('../../assets/images/ubuntu.png')}
@@ -39,7 +41,7 @@ const Home = () => {
             </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('AcoesPesquisa')}>
           <View style={estilos.card}>
             <Image
                   source={require('../../assets/images/meninas.png')}

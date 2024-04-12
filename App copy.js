@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, SafeAreaView, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Divider } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Home from './src/screens/Home';
 import AcoesPesquisa from './src/screens/AcoesPesquisa';
@@ -14,51 +15,92 @@ const Stack = createStackNavigator()
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
+
       <SafeAreaView style={{flex: 1}}>
-        <Text style={estilos.textoEmail}>usuario@dominio.com</Text>
-        <View style={{height: 1, backgroundColor: 'white'}} />
 
-        <DrawerItemList {...props} />
-        <View style={estilos.textoDrawer} />
+        <View style={{alignItems: 'center'}}>
+          <Text style={estilos.textoEmail}>usuario@dominio.com</Text>
+          <Divider 
+          style={estilos.divider}
+          theme={{ colors: { primary: 'white' } }}
+          />
+        </View>
 
-        {/* Adicionando uma divisão */}
-        <View style={{height: 1, backgroundColor: 'gray'}} />
+        {/*Por enquanto está navegando para AcoesPesquisa*/}
+        <DrawerItem
+          label={() => (
+            <View style={estilos.itemDrawer}>
+              
+              <Icon name="description" 
+                size={30} 
+                color="white" 
+                style={{ marginRight: 10 }} />
 
-        <Pressable>
-          <Icon name="logout" size={30} color="#900" />
-          <Text style={{color: 'white'}}>Sair</Text>
-        </Pressable>
+              <Text style={estilos.labelDrawer}>Pesquisas</Text>
+            </View>
+          )}
+          onPress={() => props.navigation.navigate('AcoesPesquisa')}
+        />
+      
       </SafeAreaView>
+      <View style={estilos.footer}>
+        <Pressable style={{flexDirection: 'row'}}>
+            <Icon name="logout" size={30} color="white" />
+            <Text style={estilos.itemSair}>Sair</Text>
+        </Pressable>
+      </View>
     </DrawerContentScrollView>
   );
+}
+
+function HomeStackScreen(){
+  return(
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AcoesPesquisa"
+        component={AcoesPesquisa}
+        options={{headerShown: true}}
+      />
+    </Stack.Navigator>
+  )
 }
 
 const App = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator 
-      screenOptions={{
-        drawerStyle: {
-          backgroundColor: '#2B1D62', // Sua cor de fundo aqui
-        },
-        drawerActiveTintColor: 'white',
-        drawerInactiveTintColor: 'white'
-      }}
-      drawerContent={props => <CustomDrawerContent {...props} />}>
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#2B1D62',
+          },
+          drawerActiveTintColor: 'white',
+          drawerInactiveTintColor: 'white',
+          labelStyle: {
+            fontFamily: 'AveriaLibre-Regular'
+          },
+        }}
+        drawerContent={props => <CustomDrawerContent {...props} />}
+      >
         <Drawer.Screen 
           name="Home" 
-          component={Home} 
-          options= {estilos.header}
+          component={HomeStackScreen} 
+          options={estilos.header}
         />
         <Drawer.Screen 
           name="AcoesPesquisa" 
           component={AcoesPesquisa}
-          options = {{headerShown: false}} 
+          options={{ headerShown: false }} 
         />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
+
 
 const estilos = StyleSheet.create({
     header: {
@@ -72,14 +114,36 @@ const estilos = StyleSheet.create({
         headerTintColor:'white'
     },
     textoEmail: {
-      fontSize: 15,
+      fontSize: 25,
       color: 'white',
-      margin: 10
+      margin: 10,
+      fontFamily: 'AveriaLibre-Regular',
     },
-    textoDrawer: {
-      fontSize: 20,
-      color: 'white',
-      flex: 1
+    footer: {
+      flex: 1,
+      marginLeft: 30,
+      marginTop: 180
+    },
+    divider: {
+      width: '82%', 
+      alignItems: 'center', 
+      height: 1
+    },
+    labelDrawer: {
+      fontFamily: 'AveriaLibre-Regular', 
+      color: 'white', 
+      fontSize: 25 
+    },
+    itemDrawer: {
+      flexDirection: 'row', 
+      alignItems: 'center', 
+      marginLeft: 10 
+    },
+    itemSair: {
+      color: 'white', 
+      fontSize: 25, 
+      fontFamily: 'AveriaLibre-Regular', 
+      marginLeft: 10, 
     }
 })
 
