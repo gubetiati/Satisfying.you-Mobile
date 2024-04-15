@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Image, Text, TextInput, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, StyleSheet, Image, Text, TextInput, Modal, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 
@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
   const navigation = useNavigation()
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View style={estilos.container}>
@@ -69,14 +70,39 @@ const Home = () => {
 
       <View style={{width: '95%', marginTop: 20, height: 50, justifyContent: 'center'}}>
         <TouchableOpacity
-          onPress={() => {
-          }}
+          onPress={() => setModalVisible(true)}
           style={estilos.botao}
         >
         <Text style={estilos.textoBotao}>NOVA PESQUISA</Text>
         </TouchableOpacity>
       </View>
       
+      {/* Pop-up */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
+        <View style={estilos.modalContainer}>
+          <View style={estilos.modalContent}>
+            <Text style={estilos.modalTitle}>Tem certeza de apagar essa pesquisa?</Text>
+            <View style={estilos.modalButtonsContainer}>
+              <TouchableOpacity 
+                style={estilos.buttonSim}
+                onPress={() => {/* Lógica do botão "Sim" */}}>
+                <Text style={estilos.buttonText}>SIM</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={estilos.buttonCancelar}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={estilos.buttonText}>CANCELAR</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
     </View>
   );
 };
@@ -155,7 +181,66 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'AveriaLibre-Regular',
     paddingTop: 5 
-  }
+  },
+
+//---Pop-up---
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo escurecido
+  },
+  modalContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#2B1F5C',
+    padding: 20,
+    borderRadius: 2,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 20,
+    marginBottom: 20,
+    color: 'white',
+    fontFamily: 'AveriaLibre-Regular',
+    textAlign: 'center', 
+    flexWrap: 'wrap', 
+    maxWidth: 250, // Defina uma largura máxima para o título
+  },
+  
+  modalButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '20%',
+  },
+  buttonSim: {
+    backgroundColor: '#FF8383',
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 1,
+    marginRight: 20,
+    width: 130,
+    height: 46
+
+  },
+  buttonCancelar: {
+    backgroundColor: '#3F92C5',
+    paddingVertical: 8,
+    paddingHorizontal: 5,
+    borderRadius: 1,
+    width: 130,
+    height: 46
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 22,
+    fontFamily: 'AveriaLibre-Regular',
+    textAlign: 'center'
+  },
+  
+  
+
+
 });
 
 export default Home;
