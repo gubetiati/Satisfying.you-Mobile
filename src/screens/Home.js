@@ -51,6 +51,20 @@ const Home = () => {
             <Text style={estilos.textoData}>01/04/2022</Text>
             </View>
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('AcoesPesquisa')}>
+          <View style={estilos.card}>
+            <Image
+                  source={require('../../assets/images/meninas.png')}
+                  style={estilos.image}
+                />
+            <Text style={estilos.tituloCard}>PESQUISA </Text>
+            <Text style={estilos.textoData}>01/04/2022</Text>
+            </View>
+        </TouchableOpacity>
+
+
+
       </View>
 
       <View style={{width: '95%', marginTop: 20, height: 50, justifyContent: 'center'}}>
