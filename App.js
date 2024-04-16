@@ -73,16 +73,20 @@ function AcoesPesquisaStackScreen(){
         options={({ navigation }) => ({
           headerShown: true,
           headerStyle: {
-            backgroundColor: '#2B1D62',
+            backgroundColor: '#2B1D62'
           },
           headerTitle: 'Pesquisa',
+          headerTitleStyle:{
+            fontFamily:'AveriaLibre-Regular',
+            fontSize: 30
+          },
           headerTintColor:'white',
           headerLeft: () => (
             <Pressable
               onPress={() => navigation.goBack()}
               style={{ marginLeft: 10 }}
             >
-              <Icon name="arrow-back" size={30} color="white" />
+              <Icon name="arrow-back" size={30} color="#573FBA" />
             </Pressable>
           )
         })}

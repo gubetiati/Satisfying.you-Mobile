@@ -90,7 +90,7 @@ const Home = () => {
             <View style={estilos.modalButtonsContainer}>
               <TouchableOpacity 
                 style={estilos.buttonSim}
-                onPress={() => {/* Lógica do botão "Sim" */}}>
+                onPress={() => {}}>
                 <Text style={estilos.buttonText}>SIM</Text>
               </TouchableOpacity>
               <TouchableOpacity 
@@ -115,7 +115,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 20,
+    paddingTop: '2%',
   },
   containerCards: {
     flexDirection: 'row',
@@ -127,7 +127,6 @@ const estilos = StyleSheet.create({
     height: 150,
     backgroundColor: 'white',
     borderRadius: 10,
-    //marginHorizontal: 57,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden', 
@@ -159,12 +158,12 @@ const estilos = StyleSheet.create({
   input: {
     flex: 1,
     fontFamily: 'AveriaLibre-Regular',
-    fontSize: 15
+    fontSize: 16,
   },
   icon: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
+    width: '20%',
+    height: '20%',
+    marginRight: 5,
   },
   containerHeader: {
     backgroundColor: '#372775',
@@ -173,14 +172,14 @@ const estilos = StyleSheet.create({
   },
   botao: {
     backgroundColor: '#37BD6D',
-    height: 40
+    height: '75%'
   },
   textoBotao: {
     color: 'white', 
     fontSize: 22, 
     textAlign: 'center',
     fontFamily: 'AveriaLibre-Regular',
-    paddingTop: 5 
+    paddingTop: '0.5%'
   },
 
 //---Pop-up---
@@ -188,7 +187,7 @@ const estilos = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo escurecido
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
     display: 'flex',
@@ -205,7 +204,7 @@ const estilos = StyleSheet.create({
     fontFamily: 'AveriaLibre-Regular',
     textAlign: 'center', 
     flexWrap: 'wrap', 
-    maxWidth: 250, // Defina uma largura máxima para o título
+    maxWidth: '30%', 
   },
   
   modalButtonsContainer: {
@@ -219,8 +218,8 @@ const estilos = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 1,
     marginRight: 20,
-    width: 130,
-    height: 46
+    width: '80%',
+    height: '100%'
 
   },
   buttonCancelar: {
@@ -228,8 +227,8 @@ const estilos = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 5,
     borderRadius: 1,
-    width: 130,
-    height: 46
+    width: '80%',
+    height: '100%'
   },
   buttonText: {
     color: 'white',
@@ -238,9 +237,6 @@ const estilos = StyleSheet.create({
     textAlign: 'center'
   },
   
-  
-
-
 });
 
 export default Home;

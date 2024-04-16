@@ -58,7 +58,7 @@ const estilos = StyleSheet.create({
   card: {
     width: 200,
     height: 200,
-    backgroundColor: '#2B1D62',
+    backgroundColor: '#312464',
     borderRadius: 6,
     marginHorizontal: 20,
     justifyContent: 'center',
