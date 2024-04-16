@@ -38,16 +38,33 @@ function CustomDrawerContent(props) {
               <Text style={estilos.labelDrawer}>Pesquisas</Text>
             </View>
           )}
-          onPress={() => props.navigation.navigate('AcoesPesquisa')}
+          onPress={() => props.navigation.navigate('Home')}
         />
-      
       </SafeAreaView>
-      <View style={estilos.footer}>
-        <Pressable style={{flexDirection: 'row'}}>
-            <Icon name="logout" size={30} color="white" />
-            <Text style={estilos.itemSair}>Sair</Text>
-        </Pressable>
-      </View>
+      
+      <DrawerItem
+          style={{marginTop: 145}}
+          label={() => (
+            <View style={estilos.footer}>
+              
+              <Icon name="logout" 
+                size={30} 
+                color="white" 
+                style={{ marginRight: 10 }} />
+
+              <Text style={estilos.labelDrawer}>Sair</Text>
+            </View>
+          )}
+          onPress={() => props.navigation.navigate('Home')}
+        />
+
+        {/* <View style={estilos.footer}>
+          <Pressable style={{flexDirection: 'row'}}>
+              <Icon name="logout" size={30} color="white" />
+              <Text style={estilos.itemSair}>Sair</Text>
+          </Pressable>
+        </View> */}
+      
     </DrawerContentScrollView>
   );
 }
@@ -145,9 +162,9 @@ const estilos = StyleSheet.create({
       fontFamily: 'AveriaLibre-Regular',
     },
     footer: {
-      flex: 1,
-      marginLeft: 30,
-      marginTop: 170
+      //marginTop: '80%',
+      flexDirection: 'row',
+      marginLeft: 10,
     },
     divider: {
       width: '82%', 
