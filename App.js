@@ -8,60 +8,11 @@ import { Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Home from './src/screens/Home';
 import AcoesPesquisa from './src/screens/AcoesPesquisa';
+import CustomDrawerContent from './assets/components/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-function CustomDrawerContent(props) {
-  return (
-    <DrawerContentScrollView {...props}>
-
-      <SafeAreaView style={{flex: 1}}>
-
-        <View style={{alignItems: 'center'}}>
-          <Text style={estilos.textoEmail}>usuario@dominio.com</Text>
-          <Divider 
-          style={estilos.divider}
-          theme={{ colors: { primary: 'white' } }}
-          />
-        </View>
-
-        <DrawerItem
-          label={() => (
-            <View style={estilos.itemDrawer}>
-              
-              <Icon name="description" 
-                size={30} 
-                color="white" 
-                style={{ marginRight: 10 }} />
-
-              <Text style={estilos.labelDrawer}>Pesquisas</Text>
-            </View>
-          )}
-          onPress={() => props.navigation.navigate('Home')}
-        />
-
-         {/* Botão Sair */}
-      <DrawerItem
-          style={{marginTop: '63%'}}
-          label={() => (
-            <View style={estilos.footer}>
-              
-              <Icon name="logout" 
-                size={30} 
-                color="white" 
-                style={{ marginRight: 10 }} />
-
-              <Text style={estilos.labelDrawer}>Sair</Text>
-            </View>
-          )}
-          onPress={() => props.navigation.navigate('Home')}
-        />
-      </SafeAreaView>
-      
-    </DrawerContentScrollView>
-  );
-}
 
 function HomeStackScreen(){
   return(
@@ -125,7 +76,7 @@ const App = () => {
         <Drawer.Screen 
           name="Home" 
           component={HomeStackScreen} 
-          options={estilos.headerDrawer}
+          options={st.headerDrawer}
         />
         <Drawer.Screen 
           name="AcoesPesquisa" 
@@ -138,7 +89,7 @@ const App = () => {
 };
 
 
-const estilos = StyleSheet.create({
+const st = StyleSheet.create({
     headerDrawer: {
         headerShown: true,
         headerStyle: {
@@ -149,42 +100,6 @@ const estilos = StyleSheet.create({
         },
         headerTintColor:'white'
     },
-    textoEmail: {
-      fontSize: 25,
-      color: 'white',
-      margin: 10,
-      fontFamily: 'AveriaLibre-Regular',
-    },
-    footer: {
-      position: 'absolute',
-      bottom: -15,
-      left: 0,
-      right: 0,
-      alignItems: 'center',
-      flexDirection: 'row',
-      marginLeft: 10,
-    },
-    divider: {
-      width: '82%', 
-      alignItems: 'center', 
-      height: 1
-    },
-    labelDrawer: {
-      fontFamily: 'AveriaLibre-Regular', 
-      color: 'white', 
-      fontSize: 25 
-    },
-    itemDrawer: {
-      flexDirection: 'row', 
-      alignItems: 'center', 
-      marginLeft: 10 
-    },
-    itemSair: {
-      color: 'white', 
-      fontSize: 25, 
-      fontFamily: 'AveriaLibre-Regular', 
-      marginLeft: 10, 
-    }
 })
 
 export default App;
