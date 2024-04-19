@@ -1,10 +1,9 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Pressable } from 'react-native';
+import {  StyleSheet, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { createDrawerNavigator  } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Home from './src/screens/Home';
 import AcoesPesquisa from './src/screens/AcoesPesquisa';
@@ -12,7 +11,6 @@ import CustomDrawerContent from './assets/components/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
-
 
 function HomeStackScreen(){
   return(
