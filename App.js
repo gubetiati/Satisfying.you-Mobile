@@ -40,10 +40,10 @@ function CustomDrawerContent(props) {
           )}
           onPress={() => props.navigation.navigate('Home')}
         />
-      </SafeAreaView>
-      
+
+         {/* Botão Sair */}
       <DrawerItem
-          style={{marginTop: 145}}
+          style={{marginTop: '63%'}}
           label={() => (
             <View style={estilos.footer}>
               
@@ -57,13 +57,7 @@ function CustomDrawerContent(props) {
           )}
           onPress={() => props.navigation.navigate('Home')}
         />
-
-        {/* <View style={estilos.footer}>
-          <Pressable style={{flexDirection: 'row'}}>
-              <Icon name="logout" size={30} color="white" />
-              <Text style={estilos.itemSair}>Sair</Text>
-          </Pressable>
-        </View> */}
+      </SafeAreaView>
       
     </DrawerContentScrollView>
   );
@@ -162,7 +156,11 @@ const estilos = StyleSheet.create({
       fontFamily: 'AveriaLibre-Regular',
     },
     footer: {
-      //marginTop: '80%',
+      position: 'absolute',
+      bottom: -15,
+      left: 0,
+      right: 0,
+      alignItems: 'center',
       flexDirection: 'row',
       marginLeft: 10,
     },
