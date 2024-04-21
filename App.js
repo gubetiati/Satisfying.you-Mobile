@@ -8,6 +8,15 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Home from './src/screens/Home';
 import AcoesPesquisa from './src/screens/AcoesPesquisa';
 import CustomDrawerContent from './src/components/CustomDrawerContent';
+import Agradecimento from "./src/screens/Agradecimento";
+import Coleta from "./src/screens/Coleta";
+import Relatorio from "./src/screens/Relatorio";
+import Placeholder from "./src/screens/Placeholder";
+import Login from "./src/screens/Login";
+import RecuperarSenha from "./src/screens/RecuperarSenha";
+import NovaConta from "./src/screens/NovaConta";
+import ModificarPesquisa from './src/screens/ModificarPesquisa'
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -24,7 +33,7 @@ function HomeStackScreen(){
   )
 }
 
-function AcoesPesquisaStackScreen(){
+/*function AcoesPesquisaStackScreen(){
   return(
     <Stack.Navigator>
       <Stack.Screen
@@ -53,12 +62,10 @@ function AcoesPesquisaStackScreen(){
       />
     </Stack.Navigator>
   )
-}
+}*/
 
-const App = () => {
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator 
+const drawerHome = () =>{
+  <Drawer.Navigator 
         screenOptions={{
           drawerStyle: {
             backgroundColor: '#2B1D62',
@@ -81,13 +88,30 @@ const App = () => {
           component={AcoesPesquisaStackScreen}
           options={{ headerShown: false }} 
         />
-      </Drawer.Navigator>
+  </Drawer.Navigator>
+}
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{animationEnabled: false, headerShown: false}}>
+        <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='NovaConta' component={NovaConta}/>
+        <Stack.Screen name='RecuperarSenha' component={RecuperarSenha}/>
+        <Stack.Screen name="Placeholder" component={Placeholder}/>
+        <Stack.Screen name="Coleta" component={Coleta}/>
+        <Stack.Screen name="Home" component={drawerHome}/>
+        <Stack.Screen name="Agradecimento" component={Agradecimento}/>
+        <Stack.Screen name="Relatorio" component={Relatorio}/>
+        <Stack.Screen name="AcoesPesquisa" component={AcoesPesquisa}/>
+        <Stack.Screen name="ModificarPesquisa" component={ModificarPesquisa}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 
-const st = StyleSheet.create({
+/*const st = StyleSheet.create({
     headerDrawer: {
         headerShown: true,
         headerStyle: {
@@ -98,6 +122,6 @@ const st = StyleSheet.create({
         },
         headerTintColor:'white'
     },
-})
+})*/
 
 export default App;
