@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
-//import { createStackNavigator } from '@react-navigation/stack';
-
 
 const AcoesPesquisa = () => {
   return (

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Image, Text, TextInput, Modal, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
-import Popup from '../../assets/components/Popup'
-import Card from '../../assets/components/Card'
+import Popup from '../components/Popup'
+import Card from '../components/Card'
 
 
 const Home = () => {

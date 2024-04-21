@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Home from './src/screens/Home';
 import AcoesPesquisa from './src/screens/AcoesPesquisa';
-import CustomDrawerContent from './assets/components/CustomDrawerContent';
+import CustomDrawerContent from './src/components/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
