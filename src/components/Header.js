@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-
 const Header = (props) =>{
+    const sair = () =>{
+        props.navigation.pop();
+    }
+
     return(
         <View style={st.containerHeader}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={sair}>
                 <Icon name="arrow-back" size={40} color="#573fba"/>
             </TouchableOpacity>
             <Text style={st.textoHeader}>{props.textoHeader}</Text>

@@ -4,7 +4,7 @@ import Botao from '../../src/components/BotaoVerde'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Header from '../../src/components/Header'
 
-const ModificarPesquisa = () =>{
+const ModificarPesquisa = (props) =>{
 
   const [txtNome, setNome] = useState('')
   const [txtData, setData] = useState('')
@@ -34,7 +34,7 @@ const ModificarPesquisa = () =>{
     <View style = {estilos.view}>
 
       <View style = {estilos.header} >
-        <Header textoHeader="Modificar Pesquisa"/>
+        <Header textoHeader="Modificar Pesquisa" navigation={props.navigation}/>
       </View>
       
 

@@ -12,7 +12,7 @@ const Login = (props) => {
   }
 
   const irParaPlaceholder = () =>{
-    props.navigation.navigate('Placeholder');
+    props.navigation.navigate('Home');
   }
 
   return (

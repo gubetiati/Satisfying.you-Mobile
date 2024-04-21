@@ -1,11 +1,14 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 
 const AcoesPesquisa = () => {
+  const navigation = useNavigation()
+
   return (
     <View style={estilos.container}>
       <View style={estilos.containerCards}>
-        <TouchableOpacity>
+        <TouchableOpacity  onPress={() => navigation.navigate('ModificarPesquisa')}>
           <View style={estilos.card}>
             <Image
                 source={require('../../assets/images/modificar.png')}
@@ -14,7 +17,7 @@ const AcoesPesquisa = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity  onPress={() => navigation.navigate('Coleta')}>
           <View style={estilos.card}>
             <Image
                   source={require('../../assets/images/coletar.png')}
@@ -24,7 +27,7 @@ const AcoesPesquisa = () => {
             </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Relatorio')}>
           <View style={estilos.card}>
             <Image
                   source={require('../../assets/images/relatorio.png')}

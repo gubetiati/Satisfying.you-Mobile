@@ -11,7 +11,6 @@ import CustomDrawerContent from './src/components/CustomDrawerContent';
 import Agradecimento from "./src/screens/Agradecimento";
 import Coleta from "./src/screens/Coleta";
 import Relatorio from "./src/screens/Relatorio";
-import Placeholder from "./src/screens/Placeholder";
 import Login from "./src/screens/Login";
 import RecuperarSenha from "./src/screens/RecuperarSenha";
 import NovaConta from "./src/screens/NovaConta";
@@ -33,7 +32,7 @@ function HomeStackScreen(){
   )
 }
 
-/*function AcoesPesquisaStackScreen(){
+function AcoesPesquisaStackScreen(){
   return(
     <Stack.Navigator>
       <Stack.Screen
@@ -62,34 +61,34 @@ function HomeStackScreen(){
       />
     </Stack.Navigator>
   )
-}*/
-
-const drawerHome = () =>{
-  <Drawer.Navigator 
-        screenOptions={{
-          drawerStyle: {
-            backgroundColor: '#2B1D62',
-          },
-          drawerActiveTintColor: 'white',
-          drawerInactiveTintColor: 'white',
-          labelStyle: {
-            fontFamily: 'AveriaLibre-Regular'
-          },
-        }}
-        drawerContent={props => <CustomDrawerContent {...props} />}
-      >
-        <Drawer.Screen 
-          name="Home" 
-          component={HomeStackScreen} 
-          options={st.headerDrawer}
-        />
-        <Drawer.Screen 
-          name="AcoesPesquisa" 
-          component={AcoesPesquisaStackScreen}
-          options={{ headerShown: false }} 
-        />
-  </Drawer.Navigator>
 }
+
+const DrawerHome = () => (
+  <Drawer.Navigator 
+    screenOptions={{
+      drawerStyle: {
+        backgroundColor: '#2B1D62',
+      },
+      drawerActiveTintColor: 'white',
+      drawerInactiveTintColor: 'white',
+      labelStyle: {
+        fontFamily: 'AveriaLibre-Regular'
+      },
+    }}
+    drawerContent={props => <CustomDrawerContent {...props} />}
+  >
+    <Drawer.Screen 
+      name="Home" 
+      component={HomeStackScreen} 
+      options={st.headerDrawer}
+    />
+    <Drawer.Screen 
+      name="AcoesPesquisa" 
+      component={AcoesPesquisaStackScreen}
+      options={{ headerShown: false }} 
+    />
+  </Drawer.Navigator>
+);
 
 const App = () => {
   return (
@@ -98,9 +97,9 @@ const App = () => {
         <Stack.Screen name='Login' component={Login}/>
         <Stack.Screen name='NovaConta' component={NovaConta}/>
         <Stack.Screen name='RecuperarSenha' component={RecuperarSenha}/>
-        <Stack.Screen name="Placeholder" component={Placeholder}/>
+        {/* <Stack.Screen name="Placeholder" component={Placeholder}/> */}
         <Stack.Screen name="Coleta" component={Coleta}/>
-        <Stack.Screen name="Home" component={drawerHome}/>
+        <Stack.Screen name="Home" component={DrawerHome}/>
         <Stack.Screen name="Agradecimento" component={Agradecimento}/>
         <Stack.Screen name="Relatorio" component={Relatorio}/>
         <Stack.Screen name="AcoesPesquisa" component={AcoesPesquisa}/>
@@ -111,7 +110,7 @@ const App = () => {
 };
 
 
-/*const st = StyleSheet.create({
+const st = StyleSheet.create({
     headerDrawer: {
         headerShown: true,
         headerStyle: {
@@ -122,6 +121,6 @@ const App = () => {
         },
         headerTintColor:'white'
     },
-})*/
+})
 
 export default App;
