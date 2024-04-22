@@ -15,6 +15,7 @@ import Login from "./src/screens/Login";
 import RecuperarSenha from "./src/screens/RecuperarSenha";
 import NovaConta from "./src/screens/NovaConta";
 import ModificarPesquisa from './src/screens/ModificarPesquisa'
+import NovaPesquisa from './src/screens/NovaPesquisa'
 
 
 const Drawer = createDrawerNavigator();
@@ -97,7 +98,7 @@ const App = () => {
         <Stack.Screen name='Login' component={Login}/>
         <Stack.Screen name='NovaConta' component={NovaConta}/>
         <Stack.Screen name='RecuperarSenha' component={RecuperarSenha}/>
-        {/* <Stack.Screen name="Placeholder" component={Placeholder}/> */}
+        <Stack.Screen name='NovaPesquisa' component={NovaPesquisa}/>
         <Stack.Screen name="Coleta" component={Coleta}/>
         <Stack.Screen name="Home" component={DrawerHome}/>
         <Stack.Screen name="Agradecimento" component={Agradecimento}/>

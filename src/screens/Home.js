@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, Image, Text, TextInput, Modal, Button } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text, TextInput, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 import Popup from '../components/Popup'
 import Card from '../components/Card'
-
+import NovaPesquisa from '../screens/NovaPesquisa'
 
 const Home = () => {
   const navigation = useNavigation()
@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <View style={st.container}>
-     <View style={st.barraPesquisa}>
+      <View style={st.barraPesquisa}>
         <Icon name="search" size={30} color="gray"></Icon>
         <TextInput
           style={st.input}
@@ -21,7 +21,11 @@ const Home = () => {
       </View>
         
       {/* Cards */}
-      <View style={st.containerCards}>
+      <ScrollView
+        horizontal={true}
+        contentContainerStyle={st.containerCards}
+        showsHorizontalScrollIndicator={false}
+      >
         <Card
           onPress={() => navigation.navigate('AcoesPesquisa')}
           image={require('../../assets/images/secomp.png')}
@@ -49,18 +53,18 @@ const Home = () => {
           titulo='PESQUISA2'
           data='23/04/2023'
         />
-
-      </View>
+        
+      </ScrollView>
 
       <View style={{width: '95%', marginTop: 20, height: 50, justifyContent: 'center'}}>
         <TouchableOpacity
-          onPress={() => setModalVisible(true)}
+          onPress={() => navigation.navigate('NovaPesquisa')}
           style={st.botao}
         >
         <Text style={st.textoBotao}>NOVA PESQUISA</Text>
         </TouchableOpacity>
       </View>
-
+      
       {/* Pop-up para apagar pesquisa*/}
       <Popup modalVisible={modalVisible} setModalVisible={setModalVisible} />
 
@@ -80,8 +84,8 @@ const st = StyleSheet.create({
   },
   containerCards: {
     flexDirection: 'row',
-    width: '95%',
     justifyContent: 'space-between',
+    marginLeft: '2.5%'
   },
 
   barraPesquisa: {
@@ -121,7 +125,6 @@ const st = StyleSheet.create({
     fontFamily: 'AveriaLibre-Regular',
     paddingTop: '0.5%'
   },
-
 });
 
 export default Home;

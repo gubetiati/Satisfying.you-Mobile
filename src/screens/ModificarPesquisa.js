@@ -3,6 +3,7 @@ import {useState} from 'react'
 import Botao from '../../src/components/BotaoVerde'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Header from '../../src/components/Header'
+import Popup from '../components/Popup'
 
 const ModificarPesquisa = (props) =>{
 
@@ -10,6 +11,7 @@ const ModificarPesquisa = (props) =>{
   const [txtData, setData] = useState('')
   const [txtValNome, setValNome] = useState('')
   const [txtValData, setValData] = useState('')
+  const [modalVisible, setModalVisible] = useState(false);
   
   const modificaDados = () => {
     
@@ -76,12 +78,14 @@ const ModificarPesquisa = (props) =>{
 
     <View style={estilos.cBotaoDeletar}>
 
-      <TouchableOpacity style={estilos.cBotaoDeletar}>
+      <TouchableOpacity style={estilos.cBotaoDeletar} onPress={() => setModalVisible(true)}>
         <Icon name="trash-can-outline" size={50} color="white"/>
         <Text style={estilos.texto}>Apagar</Text>
       </TouchableOpacity>
   
-    </View>      
+    </View>  
+     {/* Pop-up para apagar pesquisa*/}
+     <Popup modalVisible={modalVisible} setModalVisible={setModalVisible} />    
 
   </View>
     

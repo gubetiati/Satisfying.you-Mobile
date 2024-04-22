@@ -3,8 +3,11 @@ import {useState} from 'react'
 import Botao from '../../src/components/BotaoVerde'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Header from '../../src/components/Header'
+import { useNavigation } from '@react-navigation/native'
 
 const ModificarPesquisa = () =>{
+
+  const navigation = useNavigation()
 
   const [txtNome, setNome] = useState('')
   const [txtData, setData] = useState('')
@@ -34,7 +37,7 @@ const ModificarPesquisa = () =>{
     <View style = {estilos.view}>
 
       <View style = {estilos.header} >
-        <Header textoHeader="Nova Pesquisa"/>
+        <Header textoHeader="Nova Pesquisa" navigation={navigation}/>
       </View>
       
 

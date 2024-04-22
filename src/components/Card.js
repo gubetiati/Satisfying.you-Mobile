@@ -15,12 +15,13 @@ const Card = ({onPress, image, titulo, data }) => {
 
 const st = StyleSheet.create({
     card: {
-        width: 180,
-        height: 155,
+        width: 200,
+        height: 170,
         backgroundColor: 'white',
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
+        marginRight: 40
       },
       image: {
         height: '45%', 
@@ -28,7 +29,7 @@ const st = StyleSheet.create({
         marginBottom: 8,
       },
       tituloCard: {
-        fontSize: 22,
+        fontSize: 24,
         color: '#3F92C5',
         fontFamily: 'AveriaLibre-Regular'
       },
