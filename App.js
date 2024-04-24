@@ -19,7 +19,7 @@ import NovaPesquisa from './src/screens/NovaPesquisa'
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-function HomeStackScreen(){
+/*function HomeStackScreen(){
   return(
     <Stack.Navigator>
       <Stack.Screen
@@ -29,7 +29,7 @@ function HomeStackScreen(){
       />
     </Stack.Navigator>
   )
-}
+}*/
 
 const DrawerHome = () => (
   <Drawer.Navigator 
@@ -47,7 +47,7 @@ const DrawerHome = () => (
   >
     <Drawer.Screen 
       name="Home" 
-      component={HomeStackScreen} 
+      component={Home} 
       options={st.headerDrawer}
     />
   </Drawer.Navigator>

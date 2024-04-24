@@ -26,7 +26,6 @@ const st = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#2b1d62',
         paddingLeft: '1%',
-        height: '50%'
     },
     textoHeader:{
         fontSize: 24,
