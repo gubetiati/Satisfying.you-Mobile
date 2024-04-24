@@ -152,7 +152,7 @@ const estilos = StyleSheet.create({
   textoVal: {
     fontSize: 18,
     color: '#fd7979',
-    fontFamily: 'AveriaLibre-Regular'
+    fontFamily: 'Stylish-Regular' 
   }
 
 })

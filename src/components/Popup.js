@@ -1,7 +1,21 @@
 import React from 'react';
 import { View, Modal, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {  useNavigation } from '@react-navigation/native'
 
 const Popup = ({ modalVisible, setModalVisible }) => {
+
+  const navigation = useNavigation();
+
+  const botaoSim = () => {
+    navigation.navigate('TelaHome');
+    setModalVisible(false);
+  };
+
+  const botaoNao = () => {
+    navigation.navigate('AcoesPesquisa');
+    setModalVisible(false);
+  };
+
   return (
     <Modal
       animationType="fade"
@@ -15,12 +29,12 @@ const Popup = ({ modalVisible, setModalVisible }) => {
           <View style={styles.modalButtonsContainer}>
             <TouchableOpacity 
               style={styles.buttonSim}
-              onPress={() => {}}>
+              onPress={botaoSim}>
               <Text style={styles.buttonText}>SIM</Text>
             </TouchableOpacity>
             <TouchableOpacity 
               style={styles.buttonCancelar}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={botaoNao}>
               <Text style={styles.buttonText}>CANCELAR</Text>
             </TouchableOpacity>
           </View>
@@ -52,13 +66,13 @@ const styles = StyleSheet.create({
         fontFamily: 'AveriaLibre-Regular',
         textAlign: 'center', 
         flexWrap: 'wrap', 
-        maxWidth: '30%', 
+        maxWidth: '40%', 
     },
 
     modalButtonsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '20%',
+        width: '30%',
     },
     buttonSim: {
         backgroundColor: '#FF8383',

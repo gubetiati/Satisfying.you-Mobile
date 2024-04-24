@@ -87,7 +87,7 @@ const ModificarPesquisa = (props) =>{
   
     </View>  
      {/* Pop-up para apagar pesquisa*/}
-     <Popup modalVisible={modalVisible} setModalVisible={setModalVisible} />    
+     <Popup modalVisible={modalVisible} setModalVisible={setModalVisible} navigation={props.navigation}/>    
 
   </View>
     
