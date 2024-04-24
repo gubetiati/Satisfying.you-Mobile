@@ -1,5 +1,6 @@
 import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
 import Header from '../components/Header';
+import {useState} from 'react';
 
 const RecuperarSenha = (props) => {
 
@@ -7,10 +8,25 @@ const RecuperarSenha = (props) => {
     props.navigation.pop();
   }
 
+  const [email, setEmail] = useState('');
+  const [aviso, setAviso] = useState('');
+  const regexEmail = /^[A-Za-z0-9.+_-]+@[A-Za-z0-9.-]+.[a-z]{2,}$/;
+
+  const verifica = () => {
+    if (regexEmail.test(email) == true) {
+      let regEmail = email;
+      console.log(regEmail);
+      setAviso(' ');
+      sair();
+    } else {
+      setAviso('E-mail parece ser inválido');
+    }
+  };
+
   return (
     <View style={estilos.tela}>
       <View style={estilos.headerContainer}>
-        <Header textoHeader="Recuperação de senha" navigation={props.navigation}/>
+        <Header textoHeader="Recuperação de senha" />
       </View>
       <View style={estilos.containerEmail}>
         <View style={estilos.caixaDeTexto}>
@@ -18,15 +34,18 @@ const RecuperarSenha = (props) => {
           <TextInput
             style={estilos.textInput}
             placeholder="jurandir.pereira@hotmail.com"
-            placeholderTextColor="#3F92C5"></TextInput>
-          <Text style={estilos.warning}>
-            E-mail parece ser inválido
-          </Text>
+            placeholderTextColor="#3F92C5"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <Text style={estilos.warning}>{aviso}</Text>
         </View>
       </View>
       <View style={estilos.containerEntrar}>
-        <Pressable style={estilos.botaoEntrar} onPress={sair}>
-          <Text style={estilos.texto}>RECUPERAR</Text>
+        <Pressable style={estilos.botaoEntrar}>
+          <Text style={estilos.texto} onPress={verifica}>
+            RECUPERAR
+          </Text>
         </Pressable>
       </View>
     </View>

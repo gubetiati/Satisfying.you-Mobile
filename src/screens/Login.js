@@ -1,5 +1,6 @@
 import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useState} from 'react'
 
 const Login = (props) => {
 
@@ -15,6 +16,29 @@ const Login = (props) => {
     props.navigation.navigate('Home');
   }
 
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [aviso, setAviso] = useState('');
+  const regexEmail = /^[A-Za-z0-9.+_-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
+
+  const verifica = () => {
+    if (regexEmail.test(email) == true && senha != '') {
+      let regEmail = email;
+      let regSenha = senha;
+      console.log(regEmail, regSenha);
+      setAviso(' ');
+      irParaHome();
+    } else {
+      if (regexEmail.test(email) == false && senha == '') {
+        setAviso('E-mail e senha inválidos');
+      } else if (senha == '') {
+        setAviso('Senha inválida');
+      } else if (regexEmail.test(email) == false) {
+        setAviso('E-mail inválido');
+      }
+    }
+  };
+
   return (
     <View style={estilos.tela}>
       <View style={estilos.logo}>
@@ -27,7 +51,10 @@ const Login = (props) => {
           <TextInput
             style={estilos.textInput}
             placeholder="jurandir.pereira@hotmail.com"
-            placeholderTextColor="#3F92C5"></TextInput>
+            placeholderTextColor="#3F92C5"
+            value={email}
+            onChangeText={setEmail}
+          />
         </View>
         <View style={estilos.caixaDeTexto}>
           <Text style={estilos.texto}>Senha</Text>
@@ -35,12 +62,17 @@ const Login = (props) => {
             style={estilos.textInput}
             placeholder="*********"
             placeholderTextColor="#3F92C5"
-            secureTextEntry={true}></TextInput>
-          <Text style={estilos.warning}>E-mail e/ou senha inválidos</Text>
+            secureTextEntry={true}
+            value={senha}
+            onChangeText={setSenha}
+          />
+          <Text style={estilos.warning}>{aviso}</Text>
         </View>
         <View style={estilos.containerEntrar}>
-          <Pressable style={estilos.botaoEntrar} onPress={irParaHome}>
-            <Text style={estilos.texto}>Entrar</Text>
+          <Pressable style={estilos.botaoEntrar}>
+            <Text style={estilos.texto} onPress={verifica}>
+              Entrar
+            </Text>
           </Pressable>
         </View>
       </View>
