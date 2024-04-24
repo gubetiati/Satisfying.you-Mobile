@@ -16,13 +16,13 @@ const estilos = StyleSheet.create({
 
     botao: {
         backgroundColor: '#49B976',
-        height: "12%",
-        paddingVertical: 5
+        height: '12%',
+        justifyContent: 'center'
     },
     texto: {
-        fontSize: 28,
+        fontSize: 25,
         color: 'white',
-        fontFamily: 'Stylish-Regular',
+        fontFamily: 'AveriaLibre-Regular',
         textAlign: 'center',  
     }
 

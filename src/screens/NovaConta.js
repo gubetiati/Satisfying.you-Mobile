@@ -1,5 +1,6 @@
 import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
 import Header from '../components/Header';
+import {useState} from 'react';
 
 const NovaConta = (props) => {
 
@@ -7,10 +8,36 @@ const NovaConta = (props) => {
     props.navigation.pop();
   }
 
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confSenha, setConfSenha] = useState('');
+  const [aviso, setAviso] = useState('');
+  const regexEmail = /^[A-Za-z0-9.+_-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
+
+  const verifica = () => {
+    if (regexEmail.test(email) == true && senha != '' && senha == confSenha) {
+      let regEmail = email;
+      let regSenha = senha;
+      console.log(regEmail, regSenha);
+      setAviso(' ');
+      sair();
+    } else {
+      if (regexEmail.test(email) == false && senha == '') {
+        setAviso('E-mail e senha inválidos');
+      } else if (senha == '') {
+        setAviso('Senha inválida');
+      } else if (regexEmail.test(email) == false) {
+        setAviso('E-mail inválido');
+      } else if (senha != confSenha) {
+        setAviso('O campo repetir senha difere da senha');
+      }
+    }
+  };
+
   return (
     <View style={estilos.tela}>
       <View style={estilos.headerContainer}>
-        <Header textoHeader="Nova Conta" navigation={props.navigation}/>
+        <Header textoHeader="Nova Conta" />
       </View>
       <View style={estilos.containerCad}>
         <View style={estilos.caixaDeTexto}>
@@ -18,7 +45,10 @@ const NovaConta = (props) => {
           <TextInput
             style={estilos.textInput}
             placeholder="jurandir.pereira@hotmail.com"
-            placeholderTextColor="#3F92C5"></TextInput>
+            placeholderTextColor="#3F92C5"
+            value={email}
+            onChangeText={setEmail}
+          />
         </View>
         <View style={estilos.caixaDeTexto}>
           <Text style={estilos.texto}>Senha</Text>
@@ -26,20 +56,24 @@ const NovaConta = (props) => {
             style={estilos.textInput}
             placeholder="*********"
             placeholderTextColor="#3F92C5"
-            secureTextEntry={true}></TextInput>
+            secureTextEntry={true}
+            value={senha}
+            onChangeText={setSenha}
+          />
         </View>
         <View style={estilos.caixaDeTexto}>
           <Text style={estilos.texto}>Repetir senha</Text>
           <TextInput
             style={estilos.textInput}
-            secureTextEntry={true}></TextInput>
-          <Text style={estilos.warning}>
-            O campo repetir senha difere da senha
-          </Text>
+            secureTextEntry={true}
+            value={confSenha}
+            onChangeText={setConfSenha}
+          />
+          <Text style={estilos.warning}>{aviso}</Text>
         </View>
       </View>
       <View style={estilos.containerEntrar}>
-        <Pressable style={estilos.botaoEntrar} onPress={sair}>
+        <Pressable style={estilos.botaoEntrar} onPress={verifica}>
           <Text style={estilos.texto}>CADASTRAR</Text>
         </Pressable>
       </View>

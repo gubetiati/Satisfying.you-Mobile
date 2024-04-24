@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Header from '../../src/components/Header'
 import { useNavigation } from '@react-navigation/native'
 
-const ModificarPesquisa = () =>{
+const NovaPesquisa = () =>{
 
   const navigation = useNavigation()
 
@@ -14,14 +14,14 @@ const ModificarPesquisa = () =>{
   const [txtValNome, setValNome] = useState('')
   const [txtValData, setValData] = useState('')
   
-  const modificaDados = () => {
+  const salvaDados = () => {
+    setValNome(" ")
+    setValData(" ")
     
     if((txtNome !='') && (txtData !='') ){
       let nome = txtNome
       let data = txtData
       console.log(nome,data)
-      setValNome(" ")
-      setValData(" ")
     }else{
       
       if(txtNome == '')
@@ -34,32 +34,34 @@ const ModificarPesquisa = () =>{
 
   return(
     
-    <View style = {estilos.view}>
+  <View style = {estilos.view}>
 
-      <View style = {estilos.header} >
-        <Header textoHeader="Nova Pesquisa" navigation={navigation}/>
-      </View>
+    <View style = {estilos.header} >
+      <Header textoHeader="Nova Pesquisa" navigation={navigation}/>
+    </View>
       
-
-      <View style = {estilos.viewPrincipal}>
-        <View style={estilos.cPrimario}>
-          <View style = {estilos.cInputs}>
-            <View>
-              <Text style={estilos.texto}>Nome:</Text>
-              <TextInput style={estilos.textInput} value={txtNome} onChangeText={setNome} />
-              <Text style={estilos.textoVal}>{txtValNome}</Text>
-            </View>
+    <View style = {estilos.viewPrincipal}>
+      
+      <View style = {estilos.cInputs}>
+        
+        <View>
+          <Text style={estilos.texto}>Nome:</Text>
+          <TextInput style={estilos.textInput} value={txtNome} onChangeText={setNome} />
+          <Text style={estilos.textoVal}>{txtValNome}</Text>
+        </View>
 
         <View>
           <View style={estilos.cData}>
-            <View style={estilos.dataInput}>
-              <Text style={estilos.texto}>Data:</Text>
-              <TextInput style={estilos.textInput} value={txtData} onChangeText={setData} />
-            </View>
-            <TouchableOpacity style={estilos.calendario}>
-              <Icon name= "calendar-month" size={33.5} color="grey"/>
-            </TouchableOpacity>         
+           <View style={estilos.dataInput}>
+             <Text style={estilos.texto}>Data:</Text>
+             <TextInput style={estilos.textInput} value={txtData} onChangeText={setData} />
+           </View>
+
+           <TouchableOpacity style={estilos.calendario}>
+             <Icon name= "calendar-month" size={33.9} color="grey"/>
+           </TouchableOpacity>
           </View>
+
           <Text style={estilos.textoVal}>{txtValData}</Text>
         </View>
 
@@ -67,21 +69,18 @@ const ModificarPesquisa = () =>{
           <Text style={estilos.texto}>Imagem:</Text>
           <TouchableOpacity>
             <View style={estilos.imagem}>
-            <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
+              <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
             </View>
           </TouchableOpacity>
         </View>
   
       </View>
 
-
-      <Botao texto="CADASTRAR" funcao = {modificaDados}/>
-  
-    </View>  
-
-  </View>
+      <Botao texto="CADASTRAR" funcao = {salvaDados}/>
+   
+    </View>
     
-</View>
+  </View>
   )
 }
 
@@ -96,27 +95,22 @@ const estilos = StyleSheet.create({
   },
   
   viewPrincipal: {
-    backgroundColor: "#372775",
+    backgroundColor: '#372775',
     flex: 0.85,
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    padding: 10  
+    paddingVertical: '2%',
+    paddingHorizontal: '15%',
+    justifyContent: 'space-between',  
   },
 
-  cPrimario: {
-    flex: 1,
-    paddingHorizontal: 100,
-    justifyContent: "space-between",
-  },
 
   cInputs: {
     flex: 0.95,
-    justifyContent: "space-evenly"
+    justifyContent: 'space-evenly'
   },
 
   cData: {
-    flexDirection: "row",
-    alignItems: "flex-end",
+    flexDirection: 'row',
+    alignItems: 'flex-end',
   },
 
   dataInput: {
@@ -124,21 +118,22 @@ const estilos = StyleSheet.create({
   },
 
   calendario: {
-    backgroundColor: "white"
+    backgroundColor: 'white'
   },
 
   imagem: {
-    backgroundColor: "white",
-    alignItems: "center",
-    width: "40%",
-    height: 60,
-    justifyContent: "center"
+    backgroundColor: 'white',
+    alignItems: 'center',
+    width: '40%',
+    height: 50,
+    justifyContent: 'center'
   },
 
   textInput: {
-    fontSize: 15,
-    backgroundColor: "white",
-    height: 35
+    fontSize: 14,
+    backgroundColor: 'white',
+    height: 35.3,
+    justifyContent: 'center'
   },
   
 
@@ -157,11 +152,9 @@ const estilos = StyleSheet.create({
   textoVal: {
     fontSize: 18,
     color: '#fd7979',
-    fontFamily: 'AveriaLibre-Regular' 
+    fontFamily: 'Stylish-Regular' 
   }
-
-  
 
 })
 
-export default ModificarPesquisa
+export default NovaPesquisa
