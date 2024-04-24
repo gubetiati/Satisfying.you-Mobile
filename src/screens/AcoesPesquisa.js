@@ -20,7 +20,7 @@ const AcoesPesquisa = (props) => {
             <Image
                 source={require('../../assets/images/modificar.png')}
                 style={estilos.image}/>
-              <Text style={estilos.textoCard}>Modificar</Text>
+              <Text style={estilos.textoCard}>  Modificar  </Text>
           </View>
         </TouchableOpacity>
 
@@ -40,7 +40,7 @@ const AcoesPesquisa = (props) => {
                   source={require('../../assets/images/relatorio.png')}
                   style={estilos.image}
                 />
-            <Text style={estilos.textoCard}>Relatório</Text>
+            <Text style={estilos.textoCard}>  Relatório  </Text>
             </View>
         </TouchableOpacity>
       </View>
@@ -58,23 +58,25 @@ const estilos = StyleSheet.create({
   },
   containerCards: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    paddingBottom: '6%'
+    paddingBottom: '6%',
+    width: '100%'
   },
   card: {
-    width: 200,
-    height: 200,
+    width: '90%',
+    height: '80%',
     backgroundColor: '#312464',
     borderRadius: 6,
-    marginHorizontal: 20,
+    marginHorizontal: '4%',
     justifyContent: 'center',
-    alignItems: 'center' 
+    alignItems: 'center' ,
+
   },
   image: {
-    height: 80,
-    width: 80,
-    marginBottom: 20
+    height: '40%',
+    width: '43%',
+    marginBottom: '10%'
   },
   textoCard: {
     fontSize: 25,

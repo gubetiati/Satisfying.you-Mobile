@@ -85,7 +85,7 @@ const ModificarPesquisa = (props) =>{
   
     </View>  
      {/* Pop-up para apagar pesquisa*/}
-     <Popup modalVisible={modalVisible} setModalVisible={setModalVisible} />    
+     <Popup modalVisible={modalVisible} setModalVisible={setModalVisible} navigation={props.navigation}/>    
 
   </View>
     
@@ -156,13 +156,13 @@ const estilos = StyleSheet.create({
   texto: {
     fontSize: 20,
     color: 'white',
-    fontFamily: 'Stylish-Regular'
+    fontFamily: 'AveriaLibre-Regular'
   },
 
   textoVal: {
     fontSize: 18,
     color: '#fd7979',
-    fontFamily: 'Stylish-Regular' 
+    fontFamily: 'AveriaLibre-Regular' 
   }
 
   

@@ -145,19 +145,19 @@ const estilos = StyleSheet.create({
   texto: {
     fontSize: 20,
     color: 'white',
-    fontFamily: 'Stylish-Regular'
+    fontFamily: 'AveriaLibre-Regular'
   },
 
   textoImagem: {
     fontSize: 18,
     color: 'grey',
-    fontFamily: 'Stylish-Regular'
+    fontFamily: 'AveriaLibre-Regular'
   },
 
   textoVal: {
     fontSize: 18,
     color: '#fd7979',
-    fontFamily: 'Stylish-Regular' 
+    fontFamily: 'AveriaLibre-Regular' 
   }
 
   

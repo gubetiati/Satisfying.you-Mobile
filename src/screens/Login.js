@@ -12,7 +12,7 @@ const Login = (props) => {
   }
 
   const irParaHome = () =>{
-    props.navigation.navigate('Home');
+    props.navigation.navigate('TelaHome');
   }
 
   return (
