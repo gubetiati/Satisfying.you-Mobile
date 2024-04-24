@@ -11,7 +11,7 @@ const Relatorio = (props) =>{
             <View style={st.containerPagina}>
                 <View style={st.containerGrafico}>
                     <View style={st.imagem}>
-                        <Image style={st.grafico} source={require('../../assets/images/pie-chart1.png')}/>
+                        <Image style={st.grafico} source={require('../../assets/images/pie-chart1.png') } resizeMode='contain'/>
                     </View>
                 </View>
                 <View style={st.containerLegenda}>
