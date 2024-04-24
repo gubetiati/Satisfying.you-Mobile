@@ -1,12 +1,19 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
+import Header from '../components/Header';
 
-const AcoesPesquisa = () => {
+const AcoesPesquisa = (props) => {
   const navigation = useNavigation()
 
   return (
+    
     <View style={estilos.container}>
+      <View style={estilos.header}>
+        <Header textoHeader="Pesquisa" navigation={props.navigation}/>
+      </View>
+      
+
       <View style={estilos.containerCards}>
         <TouchableOpacity  onPress={() => navigation.navigate('ModificarPesquisa')}>
           <View style={estilos.card}>
@@ -35,9 +42,7 @@ const AcoesPesquisa = () => {
                 />
             <Text style={estilos.textoCard}>Relatório</Text>
             </View>
-            
         </TouchableOpacity>
-        
       </View>
     </View>
   );
@@ -55,6 +60,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingBottom: '6%'
   },
   card: {
     width: 200,
@@ -74,6 +80,13 @@ const estilos = StyleSheet.create({
     fontSize: 25,
     color: 'white',
     fontFamily: 'AveriaLibre-Regular'
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flex: 1,
   }
 });
 

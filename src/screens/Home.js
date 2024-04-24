@@ -56,7 +56,7 @@ const Home = () => {
         
       </ScrollView>
 
-      <View style={{width: '95%', marginTop: 20, height: 50, justifyContent: 'center'}}>
+      <View style={{width: '95%', marginBottom: 10, height: '18%', justifyContent: 'center'}}>
         <TouchableOpacity
           onPress={() => navigation.navigate('NovaPesquisa')}
           style={st.botao}

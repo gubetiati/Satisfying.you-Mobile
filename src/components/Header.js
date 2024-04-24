@@ -25,7 +25,8 @@ const st = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#2b1d62',
-        paddingLeft: '1%'
+        paddingLeft: '1%',
+        height: '50%'
     },
     textoHeader:{
         fontSize: 24,

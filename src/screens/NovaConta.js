@@ -61,8 +61,8 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    flex: 0.2,
-    paddingBottom: '2%',
+    flex: 0.4,
+    //paddingBottom: '2%',
   },
   containerCad: {
     display: 'flex',
@@ -109,6 +109,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   textInput: {
+    paddingBottom: 4,
     fontSize: 16,
     backgroundColor: 'white',
     width: '100%',
