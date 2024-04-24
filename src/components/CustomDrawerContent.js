@@ -31,7 +31,7 @@ const CustomDrawerContent = (props) => {
               <Text style={st.labelDrawer}>Sair</Text>
             </View>
           )}
-          onPress={() => props.navigation.navigate('Login')}
+          onPress={() => props.navigation.popToTop()}
         />
       </SafeAreaView>
     </DrawerContentScrollView>

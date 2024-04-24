@@ -11,7 +11,7 @@ const Login = (props) => {
     props.navigation.navigate('RecuperarSenha');
   }
 
-  const irParaPlaceholder = () =>{
+  const irParaHome = () =>{
     props.navigation.navigate('Home');
   }
 
@@ -39,7 +39,7 @@ const Login = (props) => {
           <Text style={estilos.warning}>E-mail e/ou senha inválidos</Text>
         </View>
         <View style={estilos.containerEntrar}>
-          <Pressable style={estilos.botaoEntrar} onPress={irParaPlaceholder}>
+          <Pressable style={estilos.botaoEntrar} onPress={irParaHome}>
             <Text style={estilos.texto}>Entrar</Text>
           </Pressable>
         </View>
@@ -56,8 +56,6 @@ const Login = (props) => {
           </Pressable>
         </View>
       </View>
-      {/*<View>
-      </View>*/}
     </View>
   );
 };

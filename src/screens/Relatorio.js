@@ -66,18 +66,18 @@ const st = StyleSheet.create({
     },
     imagem:{
         display: 'flex',
-        flex: 1,
+        flex: 0.75,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100%'
+        height: '100%',
     },
     grafico:{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '70%',
-        height: '90%',
+        width: '83%',
+        height: '80%',
     }
 })
 
