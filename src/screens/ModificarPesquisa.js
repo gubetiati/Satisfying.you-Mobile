@@ -14,13 +14,13 @@ const ModificarPesquisa = (props) =>{
   const [modalVisible, setModalVisible] = useState(false);
   
   const modificaDados = () => {
+    setValNome(" ")
+    setValData(" ")
     
     if((txtNome !='') && (txtData !='') ){
       let nome = txtNome
       let data = txtData
       console.log(nome,data)
-      setValNome(" ")
-      setValData(" ")
     }else{
       
       if(txtNome == '')
@@ -55,17 +55,19 @@ const ModificarPesquisa = (props) =>{
               <Text style={estilos.texto}>Data:</Text>
               <TextInput style={estilos.textInput} value={txtData} onChangeText={setData} />
             </View>
+
             <TouchableOpacity style={estilos.calendario}>
-              <Icon name= "calendar-month" size={33.5} color="grey"/>
+              <Icon name= "calendar-month" size={33.9} color="grey"/>
             </TouchableOpacity>         
           </View>
+
           <Text style={estilos.textoVal}>{txtValData}</Text>
         </View>
 
         <View>
           <Text style={estilos.texto}>Imagem:</Text>
           <TouchableOpacity style={estilos.imagem}>
-            <Icon name= "party-popper" size={60} color="#C60EB3"/>
+            <Icon name= "party-popper" size={50} color="#C60EB3"/>
           </TouchableOpacity>
         </View>
   
@@ -104,27 +106,27 @@ const estilos = StyleSheet.create({
   },
   
   viewPrincipal: {
-    backgroundColor: "#372775",
+    backgroundColor: '#372775',
     flex: 0.85,
     flexDirection: 'row',
-    justifyContent: "space-between",
-    padding: 10  
+    justifyContent: 'space-between',
+    padding: '2%'  
   },
 
   cPrimario: {
     flex: 0.9,
-    paddingLeft: 100,
-    justifyContent: "space-between",
+    paddingLeft: '15%',
+    justifyContent: 'space-between',
   },
 
   cInputs: {
     flex: 0.95,
-    justifyContent: "space-evenly"
+    justifyContent: 'space-evenly'
   },
 
   cData: {
-    flexDirection: "row",
-    alignItems: "flex-end",
+    flexDirection: 'row',
+    alignItems: 'flex-end',
   },
 
   dataInput: {
@@ -132,37 +134,37 @@ const estilos = StyleSheet.create({
   },
 
   calendario: {
-    backgroundColor: "white"
+    backgroundColor: 'white'
   },
 
   imagem: {
-    backgroundColor: "white",
-    alignItems: "center",
-    width: "40%",
+    backgroundColor: 'white',
+    alignItems: 'center',
+    width: '40%',
   },
 
   textInput: {
-    fontSize: 15,
-    backgroundColor: "white",
-    height: 35
+    fontSize: 14,
+    backgroundColor: 'white',
+    height: 35.3
   },
 
   cBotaoDeletar: {
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    alignItems: "center"
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },   
 
   texto: {
     fontSize: 20,
     color: 'white',
-    fontFamily: 'Stylish-Regular'
+    fontFamily: 'AveriaLibre-Regular'
   },
 
   textoVal: {
     fontSize: 18,
     color: '#fd7979',
-    fontFamily: 'Stylish-Regular' 
+    fontFamily: 'AveriaLibre-Regular' 
   }
 
   
