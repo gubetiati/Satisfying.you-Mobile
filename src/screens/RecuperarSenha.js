@@ -26,7 +26,7 @@ const RecuperarSenha = (props) => {
   return (
     <View style={estilos.tela}>
       <View style={estilos.headerContainer}>
-        <Header textoHeader="Recuperação de senha" />
+        <Header textoHeader="Recuperação de senha" navigation={props.navigation}/>
       </View>
       <View style={estilos.containerEmail}>
         <View style={estilos.caixaDeTexto}>

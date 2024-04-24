@@ -7,7 +7,7 @@ const Popup = ({ modalVisible, setModalVisible }) => {
   const navigation = useNavigation();
 
   const botaoSim = () => {
-    navigation.navigate('TelaHome');
+    navigation.navigate('Home');
     setModalVisible(false);
   };
 

@@ -16,6 +16,7 @@ const ModificarPesquisa = (props) =>{
   const modificaDados = () => {
     setValNome(" ")
     setValData(" ")
+    props.navigation.navigate('AcoesPesquisa')
     
     if((txtNome !='') && (txtData !='') ){
       let nome = txtNome

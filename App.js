@@ -4,7 +4,7 @@ import {  StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator  } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './src/screens/Home';
+import TelaHome from './src/screens/TelaHome';
 import AcoesPesquisa from './src/screens/AcoesPesquisa';
 import CustomDrawerContent from './src/components/CustomDrawerContent';
 import Agradecimento from "./src/screens/Agradecimento";
@@ -46,8 +46,8 @@ const DrawerHome = () => (
     drawerContent={props => <CustomDrawerContent {...props} />}
   >
     <Drawer.Screen 
-      name="Home" 
-      component={Home} 
+      name="TelaHome" 
+      component={TelaHome} 
       options={st.headerDrawer}
     />
   </Drawer.Navigator>
@@ -62,7 +62,7 @@ const App = () => {
         <Stack.Screen name='RecuperarSenha' component={RecuperarSenha}/>
         <Stack.Screen name='NovaPesquisa' component={NovaPesquisa}/>
         <Stack.Screen name="Coleta" component={Coleta}/>
-        <Stack.Screen name="TelaHome" component={DrawerHome}/>
+        <Stack.Screen name="Home" component={DrawerHome}/>
         <Stack.Screen name="Agradecimento" component={Agradecimento}/>
         <Stack.Screen name="Relatorio" component={Relatorio}/>
         <Stack.Screen name="AcoesPesquisa" component={AcoesPesquisa}/>

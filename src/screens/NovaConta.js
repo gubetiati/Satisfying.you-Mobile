@@ -37,7 +37,7 @@ const NovaConta = (props) => {
   return (
     <View style={estilos.tela}>
       <View style={estilos.headerContainer}>
-        <Header textoHeader="Nova Conta" />
+        <Header textoHeader="Nova Conta" navigation={props.navigation}/>
       </View>
       <View style={estilos.containerCad}>
         <View style={estilos.caixaDeTexto}>

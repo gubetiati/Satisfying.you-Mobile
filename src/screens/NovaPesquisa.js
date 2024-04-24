@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Header from '../../src/components/Header'
 import { useNavigation } from '@react-navigation/native'
 
-const NovaPesquisa = () =>{
+const NovaPesquisa = (props) =>{
 
   const navigation = useNavigation()
 
@@ -22,6 +22,7 @@ const NovaPesquisa = () =>{
       let nome = txtNome
       let data = txtData
       console.log(nome,data)
+      props.navigation.navigate('Home')
     }else{
       
       if(txtNome == '')

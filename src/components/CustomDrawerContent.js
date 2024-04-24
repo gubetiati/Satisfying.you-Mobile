@@ -20,7 +20,7 @@ const CustomDrawerContent = (props) => {
               <Text style={st.labelDrawer}>Pesquisas</Text>
             </View>
           )}
-          onPress={() => props.navigation.navigate('TelaHome')}
+          onPress={() => props.navigation.navigate('Home')}
         />
 
         <DrawerItem

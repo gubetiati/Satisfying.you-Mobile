@@ -13,7 +13,7 @@ const Login = (props) => {
   }
 
   const irParaHome = () =>{
-    props.navigation.navigate('TelaHome');
+    props.navigation.navigate('Home');
   }
 
   const [email, setEmail] = useState('');

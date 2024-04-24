@@ -4,9 +4,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 import Popup from '../components/Popup'
 import Card from '../components/Card'
-import NovaPesquisa from '../screens/NovaPesquisa'
+import NovaPesquisa from './NovaPesquisa'
 
-const Home = () => {
+const TelaHome = () => {
   const navigation = useNavigation()
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -127,4 +127,4 @@ const st = StyleSheet.create({
   },
 });
 
-export default Home;
+export default TelaHome;
