@@ -1,6 +1,8 @@
 import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
 import Header from '../components/Header';
 import {useState} from 'react';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import {auth} from "../config/firebase"
 
 const RecuperarSenha = (props) => {
 
@@ -17,11 +19,25 @@ const RecuperarSenha = (props) => {
       let regEmail = email;
       console.log(regEmail);
       setAviso(' ');
-      sair();
+      resetSenha()
     } else {
       setAviso('E-mail parece ser inválido');
     }
   };
+
+  const resetSenha = ()=>{
+    sendPasswordResetEmail(auth,email)
+    .then((doc)=>{
+      console.log("Sucesso:  " + JSON.stringify(doc))
+      sair();
+    })
+    .catch((err)=>{
+      console.log("Erro: " + JSON.stringify(err.code))
+      if(err.code == 'auth/user-not-found'){
+        setAviso('Usuário não encontrado')
+      }
+    })
+  }
 
   return (
     <View style={estilos.tela}>

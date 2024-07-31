@@ -1,6 +1,8 @@
 import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
 import Header from '../components/Header';
 import {useState} from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {auth} from "../config/firebase"
 
 const NovaConta = (props) => {
 
@@ -20,7 +22,7 @@ const NovaConta = (props) => {
       let regSenha = senha;
       console.log(regEmail, regSenha);
       setAviso(' ');
-      sair();
+      criarConta();
     } else {
       if (regexEmail.test(email) == false && senha == '') {
         setAviso('E-mail e senha inválidos');
@@ -33,6 +35,22 @@ const NovaConta = (props) => {
       }
     }
   };
+
+  const criarConta = () =>{
+    createUserWithEmailAndPassword(auth,email,senha)
+    .then((doc)=>{
+      console.log("Sucesso:  " + JSON.stringify(doc))
+      sair();
+    })
+    .catch((err)=>{
+      if(err.code == 'auth/email-already-in-use'){
+        console.log('ERRO ENCONTRADO')
+        setAviso('E-mail já cadastrado')
+      }
+      console.log("Erro: " + JSON.stringify(err.code))
+
+    })
+  }
 
   return (
     <View style={estilos.tela}>

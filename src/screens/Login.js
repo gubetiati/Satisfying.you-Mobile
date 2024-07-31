@@ -1,6 +1,8 @@
 import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useState} from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import {auth} from "../config/firebase"
 
 const Login = (props) => {
 
@@ -27,7 +29,7 @@ const Login = (props) => {
       let regSenha = senha;
       console.log(regEmail, regSenha);
       setAviso(' ');
-      irParaHome();
+      entrar()
     } else {
       if (regexEmail.test(email) == false && senha == '') {
         setAviso('E-mail e senha inválidos');
@@ -38,6 +40,22 @@ const Login = (props) => {
       }
     }
   };
+
+  const entrar = ()=>{
+    signInWithEmailAndPassword(auth,email,senha)
+    .then((doc)=>{
+      console.log("Sucesso:  " + JSON.stringify(doc))
+      irParaHome();
+    })
+    .catch((err)=>{
+      console.log("Erro: " + JSON.stringify(err.code))
+      if(err.code == 'auth/wrong-password'){
+        setAviso('E-mail ou senha inválidos');
+      }else{
+        setAviso('Usuário não encontrado');        
+      }
+    })
+  }
 
   return (
     <View style={estilos.tela}>
