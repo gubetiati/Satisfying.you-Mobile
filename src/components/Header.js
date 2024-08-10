@@ -8,7 +8,7 @@ const Header = (props) =>{
 
     return(
         <View style={st.containerHeader}>
-            <TouchableOpacity onPress={sair}>
+            <TouchableOpacity onPress={()=>{sair()}}>
                 <Icon name="arrow-back" size={40} color="#573fba"/>
             </TouchableOpacity>
             <Text style={st.textoHeader}>{props.textoHeader}</Text>

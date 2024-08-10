@@ -15,6 +15,8 @@ import RecuperarSenha from "./src/screens/RecuperarSenha";
 import NovaConta from "./src/screens/NovaConta";
 import ModificarPesquisa from './src/screens/ModificarPesquisa'
 import NovaPesquisa from './src/screens/NovaPesquisa'
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -53,22 +55,25 @@ const DrawerHome = () => (
   </Drawer.Navigator>
 );
 
+//Provider vem do redux, permite acessar os dados nas telas envolvidas
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" screenOptions={{animationEnabled: false, headerShown: false}}>
-        <Stack.Screen name='Login' component={Login}/>
-        <Stack.Screen name='NovaConta' component={NovaConta}/>
-        <Stack.Screen name='RecuperarSenha' component={RecuperarSenha}/>
-        <Stack.Screen name='NovaPesquisa' component={NovaPesquisa}/>
-        <Stack.Screen name="Coleta" component={Coleta}/>
-        <Stack.Screen name="Home" component={DrawerHome}/>
-        <Stack.Screen name="Agradecimento" component={Agradecimento}/>
-        <Stack.Screen name="Relatorio" component={Relatorio}/>
-        <Stack.Screen name="AcoesPesquisa" component={AcoesPesquisa}/>
-        <Stack.Screen name="ModificarPesquisa" component={ModificarPesquisa}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
+          <Stack.Screen name='Login' component={Login}/>
+          <Stack.Screen name='NovaConta' component={NovaConta}/>
+          <Stack.Screen name='RecuperarSenha' component={RecuperarSenha}/>
+          <Stack.Screen name='NovaPesquisa' component={NovaPesquisa}/>
+          <Stack.Screen name="Coleta" component={Coleta}/>
+          <Stack.Screen name="Home" component={DrawerHome}/>
+          <Stack.Screen name="Agradecimento" component={Agradecimento}/>
+          <Stack.Screen name="Relatorio" component={Relatorio}/>
+          <Stack.Screen name="AcoesPesquisa" component={AcoesPesquisa}/>
+          <Stack.Screen name="ModificarPesquisa" component={ModificarPesquisa}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

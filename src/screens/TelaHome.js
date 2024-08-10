@@ -4,12 +4,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 import Popup from '../components/Popup'
 import Card from '../components/Card'
-import NovaPesquisa from './NovaPesquisa'
+import { useSelector } from 'react-redux';
 
 const TelaHome = () => {
   const navigation = useNavigation()
   const [modalVisible, setModalVisible] = useState(false);
 
+  const email = useSelector((state)=>state.login.email)
+  console.log("\n\nState armazeado -> " + email)
   return (
     <View style={st.container}>
       <View style={st.barraPesquisa}>

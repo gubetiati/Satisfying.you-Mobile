@@ -1,9 +1,15 @@
-import {View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native'
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import {useState} from 'react'
 import Botao from '../../src/components/BotaoVerde'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Header from '../../src/components/Header'
 import { useNavigation } from '@react-navigation/native'
+import { launchImageLibrary } from 'react-native-image-picker'
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '../config/firebase'
+import { useSelector } from 'react-redux';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { storage } from '../config/firebase'
 
 const NovaPesquisa = (props) =>{
 
@@ -13,6 +19,11 @@ const NovaPesquisa = (props) =>{
   const [txtData, setData] = useState('')
   const [txtValNome, setValNome] = useState('')
   const [txtValData, setValData] = useState('')
+  const [urlFoto, setUrlFoto] = useState('')
+  const [nomeFoto, setNomeFoto] = useState('')
+
+  const email = useSelector((state)=>state.login.email)
+
   
   const salvaDados = () => {
     setValNome(" ")
@@ -22,7 +33,7 @@ const NovaPesquisa = (props) =>{
       let nome = txtNome
       let data = txtData
       console.log(nome,data)
-      props.navigation.navigate('Home')
+      adicionarPesquisa()
     }else{
       
       if(txtNome == '')
@@ -31,6 +42,58 @@ const NovaPesquisa = (props) =>{
       if(txtData == '')
         setValData("Preencha a data")
     }
+  }
+
+  const escolherFoto = () =>{
+    launchImageLibrary()
+    .then((result)=>{
+      setUrlFoto(result.assets[0].uri)//recebe o endereço da imagem
+      setNomeFoto(result.assets[0].fileName)
+    })
+    .catch((err)=>{
+      console.log("\n\nErro ao abrir a camera -> " + JSON.stringify(err))
+    })
+  }
+
+  const adicionarPesquisa = async () => {
+    const imageRef = ref(storage, `${email}/${nomeFoto}`)
+    const file = await fetch(urlFoto)
+    const blob = await file.blob()
+    
+    uploadBytes(imageRef, blob, {contentType: 'image/jpeg'})
+    .then((doc)=>{
+      console.log("\n\nImagem enviada: " + JSON.stringify(doc))
+      getDownloadURL(imageRef)
+      .then((url)=>{
+        console.log("\n\nURL da imagem -> " + JSON.stringify(url))
+        const dadosPesquisa = {
+          nome: txtNome,
+          data: txtData,
+          linkImagem: url,
+          execelente: 0, 
+          bom: 0, 
+          neutro: 0, 
+          ruim: 0, 
+          pessimo: 0 
+        }
+        const collectionPesquisa = collection(db,email)//cria collection com o nome da pesquisa
+        addDoc(collectionPesquisa, dadosPesquisa)
+        .then((doc)=>{
+          console.log("\n\nCriação de pesquisa bem sucedida: " + JSON.stringify(doc))
+          setUrlFoto('')
+          props.navigation.navigate('Home')
+        })
+        .catch((err)=>{
+          console.log("\n\nErro na criação de pesquisa: " + JSON.stringify(err))
+        })
+      })
+      .catch((err)=>{
+        console.log("\n\nErro ao pegar URL -> " + JSON.stringify(err))
+      })
+    })
+    .catch((err)=>{
+      console.log("\n\nErro ao enviar imagem: " + JSON.stringify(err))
+    })
   }
 
   return(
@@ -68,13 +131,20 @@ const NovaPesquisa = (props) =>{
 
         <View>
           <Text style={estilos.texto}>Imagem:</Text>
-          <TouchableOpacity>
-            <View style={estilos.imagem}>
-              <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-  
+          <View style={{flexDirection:'row'}}>
+            <TouchableOpacity onPress={()=>{escolherFoto()}}>
+              <View style={estilos.imagem}>
+                <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
+              </View>
+            </TouchableOpacity>
+            {
+              urlFoto ?
+                <Image source={{uri: urlFoto}} style={{width: '20%', height: '90%', marginLeft:'2%'}}/>
+              :
+                null
+            }
+          </View>
+        </View>  
       </View>
 
       <Botao texto="CADASTRAR" funcao = {salvaDados}/>
@@ -125,7 +195,7 @@ const estilos = StyleSheet.create({
   imagem: {
     backgroundColor: 'white',
     alignItems: 'center',
-    width: '40%',
+    width: '70%',
     height: 50,
     justifyContent: 'center'
   },

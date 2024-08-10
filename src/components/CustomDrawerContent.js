@@ -3,8 +3,18 @@ import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Divider } from 'react-native-paper';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useDispatch } from 'react-redux';
+import { reducerSetLogin } from '../../redux/loginSlice';
 
 const CustomDrawerContent = (props) => {
+
+  const dispatch = useDispatch()
+
+  const sair = () => {
+    dispatch(reducerSetLogin({email: null}))
+    props.navigation.popToTop()
+  }
+
   return (
     <DrawerContentScrollView {...props}>
       <SafeAreaView style={{ flex: 1 }}>
@@ -31,7 +41,7 @@ const CustomDrawerContent = (props) => {
               <Text style={st.labelDrawer}>Sair</Text>
             </View>
           )}
-          onPress={() => props.navigation.popToTop()}
+          onPress={()=>{sair()}}
         />
       </SafeAreaView>
     </DrawerContentScrollView>

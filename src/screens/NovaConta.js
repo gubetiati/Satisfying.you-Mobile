@@ -2,7 +2,8 @@ import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
 import Header from '../components/Header';
 import {useState} from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import {auth} from "../config/firebase"
+import {auth,db} from "../config/firebase"
+import { collection, addDoc } from 'firebase/firestore';
 
 const NovaConta = (props) => {
 
@@ -36,10 +37,26 @@ const NovaConta = (props) => {
     }
   };
 
+
+  const criarCollection = () =>{//Quando o FB não encontra a collection de interesse, ele cria uma nova
+    const dataOrigem= {
+      data: new Date()
+    }
+    const collectionNova = collection(db,email);//Isso define o nome da collection nova
+    addDoc(collectionNova, dataOrigem)//Documento com data da criação
+    .then((doc)=>{
+      console.log("Collection criada -> " + JSON.stringify(doc));
+    })
+    .catch((err)=>{
+      console.log("Erro ao cria collection -> " + JSON.stringify(err));
+    })
+  }
+
   const criarConta = () =>{
     createUserWithEmailAndPassword(auth,email,senha)
     .then((doc)=>{
       console.log("Sucesso:  " + JSON.stringify(doc))
+      criarCollection();
       sair();
     })
     .catch((err)=>{
