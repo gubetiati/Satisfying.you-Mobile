@@ -1,101 +1,99 @@
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, Image} from 'react-native'
-import {useState} from 'react'
-import Botao from '../../src/components/BotaoVerde'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Header from '../../src/components/Header'
-import { useNavigation } from '@react-navigation/native'
-import { launchImageLibrary } from 'react-native-image-picker'
-import { collection, addDoc } from 'firebase/firestore'
-import { db } from '../config/firebase'
-import { useSelector } from 'react-redux';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
-import { storage } from '../config/firebase'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { useState } from 'react';
+import Botao from '../../src/components/BotaoVerde';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Header from '../../src/components/Header';
+import { useNavigation } from '@react-navigation/native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../config/firebase';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../config/firebase';
+import { adicionarPesquisa } from '../../redux/pesquisaSlice';
 
-const NovaPesquisa = (props) =>{
+const NovaPesquisa = (props) => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const navigation = useNavigation()
+  const [txtNome, setNome] = useState('');
+  const [txtData, setData] = useState('');
+  const [txtValNome, setValNome] = useState('');
+  const [txtValData, setValData] = useState('');
+  const [urlFoto, setUrlFoto] = useState('');
+  const [nomeFoto, setNomeFoto] = useState('');
 
-  const [txtNome, setNome] = useState('')
-  const [txtData, setData] = useState('')
-  const [txtValNome, setValNome] = useState('')
-  const [txtValData, setValData] = useState('')
-  const [urlFoto, setUrlFoto] = useState('')
-  const [nomeFoto, setNomeFoto] = useState('')
+  const email = useSelector((state) => state.login.email);
 
-  const email = useSelector((state)=>state.login.email)
-
-  
   const salvaDados = () => {
-    setValNome(" ")
-    setValData(" ")
-    
-    if((txtNome !='') && (txtData !='') ){
-      let nome = txtNome
-      let data = txtData
-      console.log(nome,data)
-      adicionarPesquisa()
-    }else{
-      
-      if(txtNome == '')
-        setValNome("Preencha o nome da pesquisa")
-      
-      if(txtData == '')
-        setValData("Preencha a data")
+    setValNome(' ');
+    setValData(' ');
+
+    if (txtNome !== '' && txtData !== '') {
+      let nome = txtNome;
+      let data = txtData;
+      console.log(nome, data);
+      adicionarPesquisaFirebase();
+    } else {
+      if (txtNome === '') setValNome('Preencha o nome da pesquisa');
+      if (txtData === '') setValData('Preencha a data');
     }
-  }
+  };
 
-  const escolherFoto = () =>{
+  const escolherFoto = () => {
     launchImageLibrary()
-    .then((result)=>{
-      setUrlFoto(result.assets[0].uri)//recebe o endereço da imagem
-      setNomeFoto(result.assets[0].fileName)
-    })
-    .catch((err)=>{
-      console.log("\n\nErro ao abrir a camera -> " + JSON.stringify(err))
-    })
-  }
-
-  const adicionarPesquisa = async () => {
-    const imageRef = ref(storage, `${email}/${nomeFoto}`)
-    const file = await fetch(urlFoto)
-    const blob = await file.blob()
-    
-    uploadBytes(imageRef, blob, {contentType: 'image/jpeg'})
-    .then((doc)=>{
-      console.log("\n\nImagem enviada: " + JSON.stringify(doc))
-      getDownloadURL(imageRef)
-      .then((url)=>{
-        console.log("\n\nURL da imagem -> " + JSON.stringify(url))
-        const dadosPesquisa = {
-          nome: txtNome,
-          data: txtData,
-          linkImagem: url,
-          execelente: 0, 
-          bom: 0, 
-          neutro: 0, 
-          ruim: 0, 
-          pessimo: 0 
-        }
-        const collectionPesquisa = collection(db,email)//cria collection com o nome da pesquisa
-        addDoc(collectionPesquisa, dadosPesquisa)
-        .then((doc)=>{
-          console.log("\n\nCriação de pesquisa bem sucedida: " + JSON.stringify(doc))
-          setUrlFoto('')
-          props.navigation.navigate('Home')
-        })
-        .catch((err)=>{
-          console.log("\n\nErro na criação de pesquisa: " + JSON.stringify(err))
-        })
+      .then((result) => {
+        setUrlFoto(result.assets[0].uri); //recebe o endereço da imagem
+        setNomeFoto(result.assets[0].fileName);
       })
-      .catch((err)=>{
-        console.log("\n\nErro ao pegar URL -> " + JSON.stringify(err))
-      })
-    })
-    .catch((err)=>{
-      console.log("\n\nErro ao enviar imagem: " + JSON.stringify(err))
-    })
-  }
+      .catch((err) => {
+        console.log('\n\nErro ao abrir a câmera -> ' + JSON.stringify(err));
+      });
+  };
 
+  const adicionarPesquisaFirebase = async () => {
+    const imageRef = ref(storage, `${email}/${nomeFoto}`);
+    const file = await fetch(urlFoto);
+    const blob = await file.blob();
+
+    uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
+      .then((doc) => {
+        console.log('\n\nImagem enviada: ' + JSON.stringify(doc));
+        getDownloadURL(imageRef)
+          .then((url) => {
+            console.log('\n\nURL da imagem -> ' + JSON.stringify(url));
+            const dadosPesquisa = {
+              nome: txtNome,
+              data: txtData,
+              linkImagem: url,
+              execelente: 0,
+              bom: 0,
+              neutro: 0,
+              ruim: 0,
+              pessimo: 0,
+            };
+
+            const collectionPesquisa = collection(db, email); //cria collection com o nome da pesquisa
+            addDoc(collectionPesquisa, dadosPesquisa)
+              .then((doc) => {
+                console.log('\n\nCriação de pesquisa bem sucedida: ' + JSON.stringify(doc));
+                //adiciona ao Redux
+                dispatch(adicionarPesquisa({ ...dadosPesquisa, id: doc.id }));
+                setUrlFoto('');
+                props.navigation.navigate('Home');
+              })
+              .catch((err) => {
+                console.log('\n\nErro na criação de pesquisa: ' + JSON.stringify(err));
+              });
+          })
+          .catch((err) => {
+            console.log('\n\nErro ao pegar URL -> ' + JSON.stringify(err));
+          });
+      })
+      .catch((err) => {
+        console.log('\n\nErro ao enviar imagem: ' + JSON.stringify(err));
+      });
+  };
   return(
     
   <View style = {estilos.view}>
