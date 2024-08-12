@@ -3,17 +3,17 @@ import { createSlice } from '@reduxjs/toolkit';
 const pesquisaSlice = createSlice({
   name: 'pesquisa',
   initialState: {
-    pesquisas: [],
+    pesquisaId: null, //armazena apenas o ID da pesquisa
   },
   reducers: {
-    adicionarPesquisa: (state, action) => {
-      state.pesquisas.push(action.payload);
+    setPesquisaId: (state, action) => {
+      state.pesquisaId = action.payload; //armazena o ID da pesquisa
     },
-    removerPesquisa: (state, action) => {
-      state.pesquisas = state.pesquisas.filter(pesquisa => pesquisa.id !== action.payload);
+    clearPesquisaId: (state) => {
+      state.pesquisaId = null; //limpa o ID da pesquisa quando necessário
     },
   },
 });
 
-export const { adicionarPesquisa, removerPesquisa } = pesquisaSlice.actions;
+export const { setPesquisaId, clearPesquisaId } = pesquisaSlice.actions;
 export default pesquisaSlice.reducer;

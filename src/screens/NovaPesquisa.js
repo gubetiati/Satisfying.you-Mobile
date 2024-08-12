@@ -10,7 +10,7 @@ import { db } from '../config/firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../config/firebase';
-import { adicionarPesquisa } from '../../redux/pesquisaSlice';
+import { setPesquisaId } from '../../redux/pesquisaSlice';
 
 const NovaPesquisa = (props) => {
   const navigation = useNavigation();
@@ -26,14 +26,11 @@ const NovaPesquisa = (props) => {
   const email = useSelector((state) => state.login.email);
 
   const salvaDados = () => {
-    setValNome(' ');
-    setValData(' ');
+    setValNome('');
+    setValData('');
 
     if (txtNome !== '' && txtData !== '') {
-      let nome = txtNome;
-      let data = txtData;
-      console.log(nome, data);
-      adicionarPesquisaFirebase();
+      adicionarPesquisa();
     } else {
       if (txtNome === '') setValNome('Preencha o nome da pesquisa');
       if (txtData === '') setValData('Preencha a data');
@@ -43,7 +40,7 @@ const NovaPesquisa = (props) => {
   const escolherFoto = () => {
     launchImageLibrary()
       .then((result) => {
-        setUrlFoto(result.assets[0].uri); //recebe o endereço da imagem
+        setUrlFoto(result.assets[0].uri); // Recebe o endereço da imagem
         setNomeFoto(result.assets[0].fileName);
       })
       .catch((err) => {
@@ -51,7 +48,7 @@ const NovaPesquisa = (props) => {
       });
   };
 
-  const adicionarPesquisaFirebase = async () => {
+  const adicionarPesquisa = async () => {
     const imageRef = ref(storage, `${email}/${nomeFoto}`);
     const file = await fetch(urlFoto);
     const blob = await file.blob();
@@ -61,7 +58,6 @@ const NovaPesquisa = (props) => {
         console.log('\n\nImagem enviada: ' + JSON.stringify(doc));
         getDownloadURL(imageRef)
           .then((url) => {
-            console.log('\n\nURL da imagem -> ' + JSON.stringify(url));
             const dadosPesquisa = {
               nome: txtNome,
               data: txtData,
@@ -72,13 +68,12 @@ const NovaPesquisa = (props) => {
               ruim: 0,
               pessimo: 0,
             };
-
-            const collectionPesquisa = collection(db, email); //cria collection com o nome da pesquisa
+            const collectionPesquisa = collection(db, email); // Cria collection com o nome da pesquisa
             addDoc(collectionPesquisa, dadosPesquisa)
-              .then((doc) => {
-                console.log('\n\nCriação de pesquisa bem sucedida: ' + JSON.stringify(doc));
-                //adiciona ao Redux
-                dispatch(adicionarPesquisa({ ...dadosPesquisa, id: doc.id }));
+              .then((docRef) => {
+                console.log('\n\nCriação de pesquisa bem sucedida: ' + JSON.stringify(docRef));
+                dispatch(setPesquisaId(docRef.id)); // Salva o ID da pesquisa no Redux
+                console.log('ID DA PESQUISA SALVO: ', docRef.id)
                 setUrlFoto('');
                 props.navigation.navigate('Home');
               })
@@ -94,6 +89,7 @@ const NovaPesquisa = (props) => {
         console.log('\n\nErro ao enviar imagem: ' + JSON.stringify(err));
       });
   };
+
   return(
     
   <View style = {estilos.view}>
