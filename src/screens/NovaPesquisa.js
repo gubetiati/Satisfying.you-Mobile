@@ -10,7 +10,8 @@ import { db } from '../config/firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../config/firebase';
-import { setPesquisaId } from '../../redux/pesquisaSlice';
+import { setPesquisaId, clearPesquisaId } from '../../redux/pesquisaSlice';
+import { useEffect } from 'react';
 
 const NovaPesquisa = (props) => {
   const navigation = useNavigation();
@@ -89,6 +90,13 @@ const NovaPesquisa = (props) => {
         console.log('\n\nErro ao enviar imagem: ' + JSON.stringify(err));
       });
   };
+    // Remover ID da pesquisa ao sair da tela
+    useEffect(() => {
+      return () => {
+        dispatch(clearPesquisaId()); // Limpa o ID da pesquisa do Redux ao sair da tela
+        console.log('ID da pesquisa removido')
+      };
+    }, [dispatch]);
 
   return(
     
