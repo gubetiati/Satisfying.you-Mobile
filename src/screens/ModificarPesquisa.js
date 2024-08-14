@@ -1,100 +1,111 @@
-import {View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native'
-import {useState} from 'react'
-import Botao from '../../src/components/BotaoVerde'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Header from '../../src/components/Header'
-import Popup from '../components/Popup'
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { db, storage } from '../config/firebase';
+import { ref, deleteObject } from 'firebase/storage';
+import { clearPesquisaId } from '../../redux/pesquisaSlice';
+import Popup from '../components/Popup';
+import Header from '../components/Header'
+import Botao from '../components/BotaoVerde'
 
-const ModificarPesquisa = (props) =>{
-
-  const [txtNome, setNome] = useState('')
-  const [txtData, setData] = useState('')
-  const [txtValNome, setValNome] = useState('')
-  const [txtValData, setValData] = useState('')
+const ModificarPesquisa = (props) => {
+  const [txtNome, setNome] = useState('');
+  const [txtData, setData] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  
-  const modificaDados = () => {
-    setValNome(" ")
-    setValData(" ")
-    props.navigation.navigate('AcoesPesquisa')
-    
-    if((txtNome !='') && (txtData !='') ){
-      let nome = txtNome
-      let data = txtData
-      console.log(nome,data)
-    }else{
-      
-      if(txtNome == '')
-        setValNome("Preencha o nome da pesquisa")
-      
-      if(txtData == '')
-        setValData("Preencha a data")
+  const dispatch = useDispatch();
+
+  const pesquisaId = useSelector((state) => state.pesquisa.pesquisaId);
+  const email = useSelector((state) => state.login.email);
+
+  const modificaDados = async () => {
+    if (txtNome !== '' && txtData !== '') {
+      const docRef = doc(db, email, pesquisaId);
+      await updateDoc(docRef, {
+        nome: txtNome,
+        data: txtData,
+      });
+      Alert.alert('Sucesso', 'Pesquisa modificada com sucesso');
+      props.navigation.navigate('AcoesPesquisa');
+    } else {
+      Alert.alert('Erro', 'Preencha todos os campos');
     }
-  }
+  };
 
-  return(
-    
-    <View style = {estilos.view}>
-
-      <View style = {estilos.header} >
-        <Header textoHeader="Modificar Pesquisa" navigation={props.navigation}/>
-      </View>
+  const excluirPesquisa = async () => {
+    try {
+      const docRef = doc(db, email, pesquisaId);
       
+      //excluir a imagem associada à pesquisa
+      const pesquisaDoc = await docRef.get();
+      const imageUrl = pesquisaDoc.data().linkImagem;
+      if (imageUrl) {
+        const imageRef = ref(storage, imageUrl);
+        await deleteObject(imageRef);
+      }
 
-      <View style = {estilos.viewPrincipal}>
+      //excluir o documento da pesquisa
+      await deleteDoc(docRef);
+      
+      //limpar o ID da pesquisa do Redux
+      dispatch(clearPesquisaId());
+
+      Alert.alert('Sucesso', 'Pesquisa excluída com sucesso');
+      props.navigation.navigate('Home');
+    } catch (error) {
+      console.error('Erro ao excluir pesquisa: ', error);
+      Alert.alert('Erro', 'Não foi possível excluir a pesquisa');
+    }
+  };
+
+  return (
+    <View style={estilos.view}>
+      <View style={estilos.header}>
+        <Header textoHeader="Modificar Pesquisa" navigation={props.navigation} />
+      </View>
+
+      <View style={estilos.viewPrincipal}>
         <View style={estilos.cPrimario}>
-          <View style = {estilos.cInputs}>
+          <View style={estilos.cInputs}>
             <View>
               <Text style={estilos.texto}>Nome:</Text>
               <TextInput style={estilos.textInput} value={txtNome} onChangeText={setNome} />
-              <Text style={estilos.textoVal}>{txtValNome}</Text>
             </View>
 
-        <View>
-          <View style={estilos.cData}>
-            <View style={estilos.dataInput}>
-              <Text style={estilos.texto}>Data:</Text>
-              <TextInput style={estilos.textInput} value={txtData} onChangeText={setData} />
-            </View>
+            <View>
+              <View style={estilos.cData}>
+                <View style={estilos.dataInput}>
+                  <Text style={estilos.texto}>Data:</Text>
+                  <TextInput style={estilos.textInput} value={txtData} onChangeText={setData} />
+                </View>
 
-            <TouchableOpacity style={estilos.calendario}>
-              <Icon name= "calendar-month" size={33.9} color="grey"/>
-            </TouchableOpacity>         
+                <TouchableOpacity style={estilos.calendario}>
+                  <Icon name="calendar-month" size={33.9} color="grey" />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
 
-          <Text style={estilos.textoVal}>{txtValData}</Text>
+          <Botao texto="MODIFICAR" funcao={modificaDados} />
         </View>
 
-        <View>
-          <Text style={estilos.texto}>Imagem:</Text>
-          <TouchableOpacity style={estilos.imagem}>
-            <Icon name= "party-popper" size={50} color="#C60EB3"/>
+        <View style={estilos.cBotaoDeletar}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <Icon name="trash-can-outline" size={50} color="white" />
+            <Text style={estilos.texto}>Apagar</Text>
           </TouchableOpacity>
         </View>
-  
+
+        {/* Pop-up para confirmar exclusão */}
+        <Popup 
+        modalVisible={modalVisible} 
+        setModalVisible={setModalVisible} 
+        onConfirm={excluirPesquisa} />
       </View>
-
-
-      <Botao texto="CADASTRAR" funcao = {modificaDados}/>
-  
     </View>
-
-    <View style={estilos.cBotaoDeletar}>
-
-      <TouchableOpacity style={estilos.cBotaoDeletar} onPress={() => setModalVisible(true)}>
-        <Icon name="trash-can-outline" size={50} color="white"/>
-        <Text style={estilos.texto}>Apagar</Text>
-      </TouchableOpacity>
-  
-    </View>  
-     {/* Pop-up para apagar pesquisa*/}
-     <Popup modalVisible={modalVisible} setModalVisible={setModalVisible} navigation={props.navigation}/>    
-
-  </View>
-    
-</View>
-  )
-}
+  );
+};
 
 const estilos = StyleSheet.create({
   

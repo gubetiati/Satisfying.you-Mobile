@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, Modal, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import {  useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 
-const Popup = ({ modalVisible, setModalVisible }) => {
+const Popup = ({ modalVisible, setModalVisible, onConfirm }) => {
 
   const navigation = useNavigation();
 
   const botaoSim = () => {
-    navigation.navigate('Home');
+    if (onConfirm) {
+      onConfirm();  //executa a exclusão da pesquisa
+    }
     setModalVisible(false);
   };
 
   const botaoNao = () => {
-    navigation.navigate('AcoesPesquisa');
-    setModalVisible(false);
+    setModalVisible(false);  //fecha o modal
   };
 
   return (
@@ -45,59 +46,57 @@ const Popup = ({ modalVisible, setModalVisible }) => {
 };
 
 const styles = StyleSheet.create({
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: '#2B1F5C',
-        padding: 20,
-        borderRadius: 2,
-        alignItems: 'center',
-    },
-    modalTitle: {
-        fontSize: 20,
-        marginBottom: 20,
-        color: 'white',
-        fontFamily: 'AveriaLibre-Regular',
-        textAlign: 'center', 
-        flexWrap: 'wrap', 
-        maxWidth: '40%', 
-    },
-
-    modalButtonsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '30%',
-    },
-    buttonSim: {
-        backgroundColor: '#FF8383',
-        paddingVertical: 8,
-        paddingHorizontal: 20,
-        borderRadius: 1,
-        marginRight: 20,
-        width: '80%',
-        height: '100%'
-
-    },
-    buttonCancelar: {
-        backgroundColor: '#3F92C5',
-        paddingVertical: 8,
-        paddingHorizontal: 5,
-        borderRadius: 1,
-        width: '80%',
-        height: '100%'
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 22,
-        fontFamily: 'AveriaLibre-Regular',
-        textAlign: 'center'
-        },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#2B1F5C',
+    padding: 20,
+    borderRadius: 2,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 20,
+    marginBottom: 20,
+    color: 'white',
+    fontFamily: 'AveriaLibre-Regular',
+    textAlign: 'center', 
+    flexWrap: 'wrap', 
+    maxWidth: '40%', 
+  },
+  modalButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '30%',
+  },
+  buttonSim: {
+    backgroundColor: '#FF8383',
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 1,
+    marginRight: 20,
+    width: '80%',
+    height: '100%',
+  },
+  buttonCancelar: {
+    backgroundColor: '#3F92C5',
+    paddingVertical: 8,
+    paddingHorizontal: 5,
+    borderRadius: 1,
+    width: '80%',
+    height: '100%',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 22,
+    fontFamily: 'AveriaLibre-Regular',
+    textAlign: 'center',
+  },
 });
 
 export default Popup;
