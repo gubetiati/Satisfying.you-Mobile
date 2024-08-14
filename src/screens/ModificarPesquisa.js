@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { db, storage } from '../config/firebase';
 import { ref, deleteObject } from 'firebase/storage';
 import { clearPesquisaId } from '../../redux/pesquisaSlice';
 import Popup from '../components/Popup';
-import Header from '../components/Header'
-import Botao from '../components/BotaoVerde'
+import Header from '../components/Header';
+import Botao from '../components/BotaoVerde';
 
 const ModificarPesquisa = (props) => {
   const [txtNome, setNome] = useState('');
   const [txtData, setData] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const dispatch = useDispatch();
 
   const pesquisaId = useSelector((state) => state.pesquisa.pesquisaId);
@@ -37,7 +41,6 @@ const ModificarPesquisa = (props) => {
     try {
       const docRef = doc(db, email, pesquisaId);
       
-      //excluir a imagem associada à pesquisa
       const pesquisaDoc = await docRef.get();
       const imageUrl = pesquisaDoc.data().linkImagem;
       if (imageUrl) {
@@ -45,10 +48,8 @@ const ModificarPesquisa = (props) => {
         await deleteObject(imageRef);
       }
 
-      //excluir o documento da pesquisa
       await deleteDoc(docRef);
       
-      //limpar o ID da pesquisa do Redux
       dispatch(clearPesquisaId());
 
       Alert.alert('Sucesso', 'Pesquisa excluída com sucesso');
@@ -56,6 +57,14 @@ const ModificarPesquisa = (props) => {
     } catch (error) {
       console.error('Erro ao excluir pesquisa: ', error);
       Alert.alert('Erro', 'Não foi possível excluir a pesquisa');
+    }
+  };
+
+  const onChangeDate = (event, selectedDate) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      const formattedDate = format(selectedDate, 'dd/MM/yyyy', { locale: ptBR });
+      setData(formattedDate);
     }
   };
 
@@ -77,15 +86,30 @@ const ModificarPesquisa = (props) => {
               <View style={estilos.cData}>
                 <View style={estilos.dataInput}>
                   <Text style={estilos.texto}>Data:</Text>
-                  <TextInput style={estilos.textInput} value={txtData} onChangeText={setData} />
+                  <TextInput 
+                    style={estilos.textInput} 
+                    value={txtData} 
+                    onFocus={() => setShowDatePicker(true)} 
+                    showSoftInputOnFocus={false} //desabilita o teclado ao focar no TextInput
+                  />
                 </View>
 
-                <TouchableOpacity style={estilos.calendario}>
+                <TouchableOpacity style={estilos.calendario} onPress={() => setShowDatePicker(true)}>
                   <Icon name="calendar-month" size={33.9} color="grey" />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
+
+          {showDatePicker && (
+            <DateTimePicker
+              value={new Date()}
+              mode="date"
+              display="default"
+              onChange={onChangeDate}
+              locale="pt-BR" //define a localização para português do Brasil
+            />
+          )}
 
           <Botao texto="MODIFICAR" funcao={modificaDados} />
         </View>
@@ -97,11 +121,11 @@ const ModificarPesquisa = (props) => {
           </TouchableOpacity>
         </View>
 
-        {/* Pop-up para confirmar exclusão */}
         <Popup 
-        modalVisible={modalVisible} 
-        setModalVisible={setModalVisible} 
-        onConfirm={excluirPesquisa} />
+          modalVisible={modalVisible} 
+          setModalVisible={setModalVisible} 
+          onConfirm={excluirPesquisa} 
+        />
       </View>
     </View>
   );

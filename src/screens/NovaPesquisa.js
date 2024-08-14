@@ -1,8 +1,11 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useState } from 'react';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import Botao from '../../src/components/BotaoVerde';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../../src/components/Header';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { collection, addDoc } from 'firebase/firestore';
@@ -23,6 +26,7 @@ const NovaPesquisa = (props) => {
   const [txtValData, setValData] = useState('');
   const [urlFoto, setUrlFoto] = useState('');
   const [nomeFoto, setNomeFoto] = useState('');
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const email = useSelector((state) => state.login.email);
 
@@ -98,6 +102,14 @@ const NovaPesquisa = (props) => {
       };
     }, [dispatch]);
 
+  const onChangeDate = (event, selectedDate) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      const formattedDate = format(selectedDate, 'dd/MM/yyyy', { locale: ptBR });
+      setData(formattedDate);
+    }
+  };
+
   return(
     
   <View style = {estilos.view}>
@@ -119,14 +131,29 @@ const NovaPesquisa = (props) => {
         <View>
           <View style={estilos.cData}>
            <View style={estilos.dataInput}>
-             <Text style={estilos.texto}>Data:</Text>
-             <TextInput style={estilos.textInput} value={txtData} onChangeText={setData} />
+           <Text style={estilos.texto}>Data:</Text>
+              <TextInput 
+                style={estilos.textInput} 
+                value={txtData} 
+                onFocus={() => setShowDatePicker(true)} 
+                showSoftInputOnFocus={false} //desabilita o teclado ao focar no TextInput
+              />
            </View>
 
-           <TouchableOpacity style={estilos.calendario}>
+           <TouchableOpacity style={estilos.calendario} onPress={() => setShowDatePicker(true)}>
              <Icon name= "calendar-month" size={33.9} color="grey"/>
            </TouchableOpacity>
           </View>
+
+          {showDatePicker && (
+            <DateTimePicker
+              value={new Date()}
+              mode="date"
+              display="default"
+              onChange={onChangeDate}
+              locale="pt-BR" //define a localização para português do Brasil
+            />
+          )}
 
           <Text style={estilos.textoVal}>{txtValData}</Text>
         </View>
