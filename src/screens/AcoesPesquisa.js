@@ -7,41 +7,41 @@ const AcoesPesquisa = (props) => {
   const navigation = useNavigation()
 
   return (
-    
+
     <View style={estilos.container}>
       <View style={estilos.header}>
-        <Header textoHeader="Pesquisa" navigation={props.navigation}/>
+        <Header textoHeader="Pesquisa" navigation={props.navigation} />
       </View>
-      
+
 
       <View style={estilos.containerCards}>
-        <TouchableOpacity  onPress={() => navigation.navigate('ModificarPesquisa')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ModificarPesquisa')}>
           <View style={estilos.card}>
             <Image
-                source={require('../../assets/images/modificar.png')}
-                style={estilos.image}/>
-              <Text style={estilos.textoCard}>  Modificar  </Text>
+              source={require('../../assets/images/modificar.png')}
+              style={estilos.image} />
+            <Text style={estilos.textoCard}>  Modificar  </Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity  onPress={() => navigation.navigate('Coleta')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Coleta')}>
           <View style={estilos.card}>
             <Image
-                  source={require('../../assets/images/coletar.png')}
-                  style={estilos.image}
-                />
-              <Text style={estilos.textoCard}>Coletar Dados</Text>
-            </View>
+              source={require('../../assets/images/coletar.png')}
+              style={estilos.image}
+            />
+            <Text style={estilos.textoCard}>Coletar Dados</Text>
+          </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('Relatorio')}>
           <View style={estilos.card}>
             <Image
-                  source={require('../../assets/images/relatorio.png')}
-                  style={estilos.image}
-                />
+              source={require('../../assets/images/relatorio.png')}
+              style={estilos.image}
+            />
             <Text style={estilos.textoCard}>  Relatório  </Text>
-            </View>
+          </View>
         </TouchableOpacity>
       </View>
     </View>
@@ -70,7 +70,7 @@ const estilos = StyleSheet.create({
     borderRadius: 6,
     marginHorizontal: '4%',
     justifyContent: 'center',
-    alignItems: 'center' ,
+    alignItems: 'center',
 
   },
   image: {

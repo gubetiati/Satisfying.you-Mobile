@@ -1,11 +1,11 @@
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-const BotaoVerde = (props) =>{
-    
+const BotaoVerde = (props) => {
+
     const texto = props.texto
     const funcao = props.funcao
 
-    return(
+    return (
         <TouchableOpacity style={estilos.botao} onPress={props.funcao}>
             <Text style={estilos.texto}>{texto}</Text>
         </TouchableOpacity>
@@ -23,7 +23,7 @@ const estilos = StyleSheet.create({
         fontSize: 25,
         color: 'white',
         fontFamily: 'AveriaLibre-Regular',
-        textAlign: 'center',  
+        textAlign: 'center',
     }
 
 

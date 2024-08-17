@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text } from "react-native";
 
-const Legenda = (props) =>{
-    return(
+const Legenda = (props) => {
+    return (
         <View style={st.containerPrincipal}>
             <View style={st.containerQuadrado}>
                 <View style={{
@@ -19,29 +19,29 @@ const Legenda = (props) =>{
     )
 }
 
-const st =  StyleSheet.create({
-    containerPrincipal:{
+const st = StyleSheet.create({
+    containerPrincipal: {
         display: 'flex',
         flex: 0.2,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems:'center',
+        alignItems: 'center',
         marginBottom: '1.5%',
         marginTop: '1.5%'
     },
-    containerQuadrado:{
+    containerQuadrado: {
         display: 'flex',
         flex: 0.1,
         flexDirection: 'column',
         alignItems: 'center'
     },
-    containerLegenda:{
+    containerLegenda: {
         display: 'flex',
         flex: 0.9,
         flexDirection: 'row',
         justifyContent: 'flex-star',
     },
-    textoLegenda:{
+    textoLegenda: {
         fontSize: 20,
         fontFamily: 'AveriaLibre-Regular',
         marginLeft: '2%',

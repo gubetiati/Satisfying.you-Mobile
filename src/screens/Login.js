@@ -1,36 +1,34 @@
-import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
+import { View, Pressable, TextInput, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {useState} from 'react'
+import { useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import {auth} from "../config/firebase"
+import { auth } from "../config/firebase"
 import { useDispatch } from 'react-redux';
 import { reducerSetLogin } from '../../redux/loginSlice';
 import { ActivityIndicator } from 'react-native-paper';
 
 const Login = (props) => {
 
-  const irParaNovaConta = () =>{
+  const irParaNovaConta = () => {
     props.navigation.navigate('NovaConta');
   }
 
-  const irParaRecuperarSenha = () =>{
+  const irParaRecuperarSenha = () => {
     props.navigation.navigate('RecuperarSenha');
   }
 
-  const irParaHome = () =>{
+  const irParaHome = () => {
     props.navigation.navigate('Home');
   }
 
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [email, setEmail] = useState('defowen776@segichen.com');
+  const [senha, setSenha] = useState('abcd1234');
   const [aviso, setAviso] = useState('');
   const regexEmail = /^[A-Za-z0-9.+_-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$/;
-  const [isLoading,  setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   const verifica = () => {
-    console.log("OK");
     setisLoading(true);
-    console.log("OK2");
     if (regexEmail.test(email) == true && senha != '') {
       let regEmail = email;
       let regSenha = senha;
@@ -52,29 +50,29 @@ const Login = (props) => {
 
   const dispatch = useDispatch()//usado pelo reduxer, dispara funções
 
-  const entrar = ()=>{//login usando o FB
-    signInWithEmailAndPassword(auth,email,senha)
-    .then((doc)=>{
-      console.log("Sucesso:  " + JSON.stringify(doc))
-      dispatch(reducerSetLogin({email:email}))//Armazena login
-      setEmail('');
-      setSenha('');
-      irParaHome();
-    })
-    .catch((err)=>{
-      console.log("Erro: " + JSON.stringify(err.code))
-      if(err.code == 'auth/wrong-password'){
-        setAviso('E-mail ou senha inválidos');
-      }else{
-        setAviso('Usuário não encontrado');        
-      }
-    })
-    .finally(()=>{
-      setisLoading(false);
-    })
+  const entrar = () => {//login usando o FB
+    signInWithEmailAndPassword(auth, email, senha)
+      .then((doc) => {
+        console.log("Sucesso:  " + JSON.stringify(doc))
+        dispatch(reducerSetLogin({ email: email }))//Armazena login
+        setEmail('');
+        setSenha('');
+        irParaHome();
+      })
+      .catch((err) => {
+        console.log("Erro: " + JSON.stringify(err.code))
+        if (err.code == 'auth/wrong-password') {
+          setAviso('E-mail ou senha inválidos');
+        } else {
+          setAviso('Usuário não encontrado');
+        }
+      })
+      .finally(() => {
+        setisLoading(false);
+      })
   }
 
- 
+
   return (
     <View style={estilos.tela}>
       <View style={estilos.logo}>
@@ -106,19 +104,19 @@ const Login = (props) => {
         </View>
         <View style={estilos.containerEntrar}>
           {
-            !isLoading ? 
-            <Pressable style={estilos.botaoEntrar}>
-              <Text Text style={estilos.texto} onPress={verifica}>
-               Entrar
-              </Text>
-            </Pressable>
-            : 
-            <Pressable style={estilos.botaoEntrar} disabled={true} >
-              <ActivityIndicator style={{marginTop:'2%'}} color='white' size={15}/>
-              <Text Text style={estilos.texto} onPress={verifica}>
-                {/*Autenticando*/}
-              </Text>
-            </Pressable>
+            !isLoading ?
+              <Pressable style={estilos.botaoEntrar}>
+                <Text Text style={estilos.texto} onPress={verifica}>
+                  Entrar
+                </Text>
+              </Pressable>
+              :
+              <Pressable style={estilos.botaoEntrar} disabled={true} >
+                <ActivityIndicator style={{ alignSelf: 'center', marginTop: '3%' }} color='white' size={18} />
+                <Text Text style={estilos.texto} onPress={()=>{verifica()}}>
+                  {/*Autenticando*/}
+                </Text>
+              </Pressable>
           }
 
         </View>

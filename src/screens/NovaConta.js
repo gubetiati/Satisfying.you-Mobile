@@ -1,13 +1,12 @@
-import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
+import { View, Pressable, TextInput, Text, StyleSheet } from 'react-native';
 import Header from '../components/Header';
-import {useState} from 'react';
+import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import {auth,db} from "../config/firebase"
-import { collection, addDoc } from 'firebase/firestore';
+import { auth } from "../config/firebase"
 
 const NovaConta = (props) => {
 
-  const sair = () =>{
+  const sair = () => {
     props.navigation.pop();
   }
 
@@ -37,42 +36,27 @@ const NovaConta = (props) => {
     }
   };
 
+  const criarConta = () => {
+    createUserWithEmailAndPassword(auth, email, senha)
+      .then((doc) => {
+        console.log("Sucesso:  " + JSON.stringify(doc))
+        criarCollection();
+        sair();
+      })
+      .catch((err) => {
+        if (err.code == 'auth/email-already-in-use') {
+          console.log('ERRO ENCONTRADO')
+          setAviso('E-mail já cadastrado')
+        }
+        console.log("Erro: " + JSON.stringify(err.code))
 
-  const criarCollection = () =>{//Quando o FB não encontra a collection de interesse, ele cria uma nova
-    const dataOrigem= {
-      data: new Date()
-    }
-    const collectionNova = collection(db,email);//Isso define o nome da collection nova
-    addDoc(collectionNova, dataOrigem)//Documento com data da criação
-    .then((doc)=>{
-      console.log("Collection criada -> " + JSON.stringify(doc));
-    })
-    .catch((err)=>{
-      console.log("Erro ao cria collection -> " + JSON.stringify(err));
-    })
-  }
-
-  const criarConta = () =>{
-    createUserWithEmailAndPassword(auth,email,senha)
-    .then((doc)=>{
-      console.log("Sucesso:  " + JSON.stringify(doc))
-      criarCollection();
-      sair();
-    })
-    .catch((err)=>{
-      if(err.code == 'auth/email-already-in-use'){
-        console.log('ERRO ENCONTRADO')
-        setAviso('E-mail já cadastrado')
-      }
-      console.log("Erro: " + JSON.stringify(err.code))
-
-    })
+      })
   }
 
   return (
     <View style={estilos.tela}>
       <View style={estilos.headerContainer}>
-        <Header textoHeader="Nova Conta" navigation={props.navigation}/>
+        <Header textoHeader="Nova Conta" navigation={props.navigation} />
       </View>
       <View style={estilos.containerCad}>
         <View style={estilos.caixaDeTexto}>

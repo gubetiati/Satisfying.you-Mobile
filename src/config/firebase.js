@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import {apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId} from '@env'
+import { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId } from '@env'
 
 const firebaseConfig = {
   apiKey: apiKey,
@@ -19,8 +19,8 @@ const db = getFirestore(app);
 const storage = getStorage(app)
 
 export {
-    app,
-    auth,
-    db,
-    storage
+  app,
+  auth,
+  db,
+  storage
 }

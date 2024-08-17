@@ -22,11 +22,13 @@ const NovaPesquisa = (props) => {
 
   const [txtNome, setNome] = useState('');
   const [txtData, setData] = useState('');
+
   const [txtValNome, setValNome] = useState('');
   const [txtValData, setValData] = useState('');
+
   const [urlFoto, setUrlFoto] = useState('');
-  const [nomeFoto, setNomeFoto] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [nomeImagem, setNomeImagem] = useState('')
 
   const email = useSelector((state) => state.login.email);
 
@@ -46,7 +48,7 @@ const NovaPesquisa = (props) => {
     launchImageLibrary()
       .then((result) => {
         setUrlFoto(result.assets[0].uri); // Recebe o endereço da imagem
-        setNomeFoto(result.assets[0].fileName);
+        setNomeImagem(result.assets[0].fileName);
       })
       .catch((err) => {
         console.log('\n\nErro ao abrir a câmera -> ' + JSON.stringify(err));
@@ -54,15 +56,16 @@ const NovaPesquisa = (props) => {
   };
 
   const adicionarPesquisa = async () => {
-    const imageRef = ref(storage, `${email}/${nomeFoto}`);
-    const file = await fetch(urlFoto);
-    const blob = await file.blob();
+    const imageRef = ref(storage, `${email}/${nomeImagem}`)
+    const file = await fetch(urlFoto)
+    const blob = await file.blob()
 
     uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
       .then((doc) => {
-        console.log('\n\nImagem enviada: ' + JSON.stringify(doc));
+        console.log("\n\nImagem enviada: " + JSON.stringify(doc))
         getDownloadURL(imageRef)
           .then((url) => {
+            console.log("\n\nURL da imagem -> " + JSON.stringify(url))
             const dadosPesquisa = {
               nome: txtNome,
               data: txtData,
@@ -72,35 +75,36 @@ const NovaPesquisa = (props) => {
               neutro: 0,
               ruim: 0,
               pessimo: 0,
-            };
-            const collectionPesquisa = collection(db, email); // Cria collection com o nome da pesquisa
+              nomeImagem: nomeImagem
+            }
+            const collectionPesquisa = collection(db, email)//cria collection com o nome da pesquisa
             addDoc(collectionPesquisa, dadosPesquisa)
-              .then((docRef) => {
-                console.log('\n\nCriação de pesquisa bem sucedida: ' + JSON.stringify(docRef));
-                dispatch(setPesquisaId(docRef.id)); // Salva o ID da pesquisa no Redux
-                console.log('ID DA PESQUISA SALVO: ', docRef.id)
-                setUrlFoto('');
-                props.navigation.navigate('Home');
+              .then((doc) => {
+                console.log("\n\nCriação de pesquisa bem sucedida: " + JSON.stringify(doc))
+                dispatch(setPesquisaId(doc.id)); // Salva o ID da pesquisa no Redux
+                console.log('ID DA PESQUISA SALVO: ' + doc.id)
+                setUrlFoto('')
+                props.navigation.navigate('Home')
               })
               .catch((err) => {
-                console.log('\n\nErro na criação de pesquisa: ' + JSON.stringify(err));
-              });
+                console.log("\n\nErro na criação de pesquisa: " + JSON.stringify(err))
+              })
           })
           .catch((err) => {
-            console.log('\n\nErro ao pegar URL -> ' + JSON.stringify(err));
-          });
+            console.log("\n\nErro ao pegar URL -> " + JSON.stringify(err))
+          })
       })
       .catch((err) => {
-        console.log('\n\nErro ao enviar imagem: ' + JSON.stringify(err));
-      });
-  };
-    // Remover ID da pesquisa ao sair da tela
-    useEffect(() => {
-      return () => {
-        dispatch(clearPesquisaId()); // Limpa o ID da pesquisa do Redux ao sair da tela
-        console.log('ID da pesquisa removido')
-      };
-    }, [dispatch]);
+        console.log("\n\nErro ao enviar imagem: " + JSON.stringify(err))
+      })
+  }
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearPesquisaId()); // Limpa o ID da pesquisa do Redux ao sair da tela
+      console.log('ID da pesquisa removido')
+    };
+  }, [dispatch]);
 
   const onChangeDate = (event, selectedDate) => {
     setShowDatePicker(false);
@@ -110,98 +114,98 @@ const NovaPesquisa = (props) => {
     }
   };
 
-  return(
-    
-  <View style = {estilos.view}>
 
-    <View style = {estilos.header} >
-      <Header textoHeader="Nova Pesquisa" navigation={navigation}/>
-    </View>
-      
-    <View style = {estilos.viewPrincipal}>
-      
-      <View style = {estilos.cInputs}>
-        
-        <View>
-          <Text style={estilos.texto}>Nome:</Text>
-          <TextInput style={estilos.textInput} value={txtNome} onChangeText={setNome} />
-          <Text style={estilos.textoVal}>{txtValNome}</Text>
-        </View>
+  return (
 
-        <View>
-          <View style={estilos.cData}>
-           <View style={estilos.dataInput}>
-           <Text style={estilos.texto}>Data:</Text>
-              <TextInput 
-                style={estilos.textInput} 
-                value={txtData} 
-                onFocus={() => setShowDatePicker(true)} 
-                showSoftInputOnFocus={false} //desabilita o teclado ao focar no TextInput
-              />
-           </View>
+    <View style={estilos.view}>
 
-           <TouchableOpacity style={estilos.calendario} onPress={() => setShowDatePicker(true)}>
-             <Icon name= "calendar-month" size={33.9} color="grey"/>
-           </TouchableOpacity>
-          </View>
-
-          {showDatePicker && (
-            <DateTimePicker
-              value={new Date()}
-              mode="date"
-              display="default"
-              onChange={onChangeDate}
-              locale="pt-BR" //define a localização para português do Brasil
-            />
-          )}
-
-          <Text style={estilos.textoVal}>{txtValData}</Text>
-        </View>
-
-        <View>
-          <Text style={estilos.texto}>Imagem:</Text>
-          <View style={{flexDirection:'row'}}>
-            <TouchableOpacity onPress={()=>{escolherFoto()}}>
-              <View style={estilos.imagem}>
-                <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
-              </View>
-            </TouchableOpacity>
-            {
-              urlFoto ?
-                <Image source={{uri: urlFoto}} style={{width: '20%', height: '90%', marginLeft:'2%'}}/>
-              :
-                null
-            }
-          </View>
-        </View>  
+      <View style={estilos.header} >
+        <Header textoHeader="Nova Pesquisa" navigation={navigation} />
       </View>
 
-      <Botao texto="CADASTRAR" funcao = {salvaDados}/>
-   
+      <View style={estilos.viewPrincipal}>
+
+        <View style={estilos.cInputs}>
+
+          <View>
+            <Text style={estilos.texto}>Nome:</Text>
+            <TextInput style={estilos.textInput} value={txtNome} onChangeText={setNome} />
+            <Text style={estilos.textoVal}>{txtValNome}</Text>
+          </View>
+
+          <View>
+            <View style={estilos.cData}>
+              <View style={estilos.dataInput}>
+                <Text style={estilos.texto}>Data:</Text>
+                <TextInput
+                  style={estilos.textInput}
+                  value={txtData}
+                  onFocus={() => setShowDatePicker(true)}
+                  showSoftInputOnFocus={false} //desabilita o teclado ao focar no TextInput
+                />
+              </View>
+
+              <TouchableOpacity style={estilos.calendario} onPress={() => setShowDatePicker(true)}>
+                <Icon name="calendar-month" size={33.9} color="grey" />
+              </TouchableOpacity>
+            </View>
+
+            {showDatePicker && (
+              <DateTimePicker
+                value={new Date()}
+                mode="date"
+                display="default"
+                onChange={onChangeDate}
+                locale="pt-BR" //define a localização para português do Brasil
+              />
+            )}
+
+            <Text style={estilos.textoVal}>{txtValData}</Text>
+          </View>
+
+          <View style={estilos.containerImagem}>
+            <Text style={estilos.texto}>Imagem:</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity onPress={() => { escolherFoto() }}>
+                <View style={estilos.imagem}>
+                  {
+                    urlFoto ?
+
+                      <Image source={{ uri: urlFoto }} style={{ width: '100%', height: '100%' }} />
+                      :
+                      <Text style={estilos.textoImagem}>Galeria de imagens</Text>
+                  }
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+
+        <Botao texto="CADASTRAR" funcao={salvaDados} />
+
+      </View>
+
     </View>
-    
-  </View>
   )
 }
 
 const estilos = StyleSheet.create({
-  
-  view:{
+
+  view: {
     flex: 1,
   },
 
-  header:{
+  header: {
     flex: 0.15,
   },
-  
+
   viewPrincipal: {
     backgroundColor: '#372775',
     flex: 0.85,
     paddingVertical: '2%',
     paddingHorizontal: '15%',
-    justifyContent: 'space-between',  
+    justifyContent: 'space-between',
   },
-
 
   cInputs: {
     flex: 0.95,
@@ -211,6 +215,7 @@ const estilos = StyleSheet.create({
   cData: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+    marginTop: '-1%'
   },
 
   dataInput: {
@@ -224,18 +229,19 @@ const estilos = StyleSheet.create({
   imagem: {
     backgroundColor: 'white',
     alignItems: 'center',
-    width: '70%',
-    height: 50,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: '85%',
+    width: 137
   },
 
   textInput: {
     fontSize: 14,
     backgroundColor: 'white',
     height: 35.3,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    color: 'black',
+    fontFamily: 'AveriaLibre-Regular'
   },
-  
 
   texto: {
     fontSize: 20,
@@ -252,7 +258,12 @@ const estilos = StyleSheet.create({
   textoVal: {
     fontSize: 18,
     color: '#fd7979',
-    fontFamily: 'Stylish-Regular' 
+    fontFamily: 'AveriaLibre-Regular'
+  },
+
+  containerImagem: {
+    flex: 0.9,
+    marginTop: '-1%'
   }
 
 })

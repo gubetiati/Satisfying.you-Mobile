@@ -12,8 +12,6 @@ export const loginSlice = createSlice({
     reducers:{//funções que recebem uma action, executam tarefas após receber
         reducerSetLogin: (state,action) =>{//estado inicial e tarefa que o usuario quer fazer
             //alterar valores do estado global login
-            console.log(action)
-            console.log(state)
             state.email = action.payload.email //payload = atributos
         }
     }

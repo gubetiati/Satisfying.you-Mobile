@@ -1,17 +1,46 @@
-import React, { useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, TextInput, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 import Popup from '../components/Popup'
 import Card from '../components/Card'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
+import { setPesquisaId } from '../../redux/pesquisaSlice';
+import { query, collection, onSnapshot } from 'firebase/firestore';
+import { db } from '../config/firebase';
 
 const TelaHome = () => {
   const navigation = useNavigation()
   const [modalVisible, setModalVisible] = useState(false);
 
-  const email = useSelector((state)=>state.login.email)
-  console.log("\n\nState armazeado -> " + email)
+  const dispatch = useDispatch()
+
+  const email = useSelector((state) => state.login.email)
+  const [pesquisa, setPesquisa] = useState('')
+
+  console.log("\n\nState armazeado -> " + email + "\n\n")
+
+  useEffect( () => {//pega todos os dados da pesquisa atual
+    const queryPesquisa = query(collection(db, email))
+    const unsubscribe = onSnapshot(queryPesquisa, (snap) => {
+      const listaPesquisas = []
+      snap.forEach( (doc) =>{
+        listaPesquisas.push({
+          id: doc.id,
+          ...doc.data()
+        })
+      })
+      if((listaPesquisas != '') || (listaPesquisas != null) || (listaPesquisas != undefined)){
+        setPesquisa(listaPesquisas[0])
+      }
+    })
+  }, [])
+
+  dispatch(setPesquisaId({pesquisaId: pesquisa.id}))
+  const pesq = useSelector((state) => state.pesquisa.pesquisaId);
+  console.log("\n\nState da pesquisa -> " + pesq)
+  //!MODIFICAR PESQUISA NÃO VAI FUNCIONAR CASO UMA PESQUISA NÃO TENHA SIDO CADASTRADA ANTES
+
   return (
     <View style={st.container}>
       <View style={st.barraPesquisa}>
@@ -21,7 +50,7 @@ const TelaHome = () => {
           placeholder="Insira o termo de busca..."
         />
       </View>
-        
+
       {/* Cards */}
       <ScrollView
         horizontal={true}
@@ -55,18 +84,18 @@ const TelaHome = () => {
           titulo='PESQUISA2'
           data='23/04/2023'
         />
-        
+
       </ScrollView>
 
-      <View style={{width: '95%', marginBottom: 10, height: '18%', justifyContent: 'center'}}>
+      <View style={{ width: '95%', marginBottom: 10, height: '18%', justifyContent: 'center' }}>
         <TouchableOpacity
           onPress={() => navigation.navigate('NovaPesquisa')}
           style={st.botao}
         >
-        <Text style={st.textoBotao}>NOVA PESQUISA</Text>
+          <Text style={st.textoBotao}>NOVA PESQUISA</Text>
         </TouchableOpacity>
       </View>
-      
+
       {/* Pop-up para apagar pesquisa*/}
       <Popup modalVisible={modalVisible} setModalVisible={setModalVisible} />
 
@@ -121,8 +150,8 @@ const st = StyleSheet.create({
     height: '75%'
   },
   textoBotao: {
-    color: 'white', 
-    fontSize: 22, 
+    color: 'white',
+    fontSize: 22,
     textAlign: 'center',
     fontFamily: 'AveriaLibre-Regular',
     paddingTop: '0.5%'

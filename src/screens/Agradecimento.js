@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
 
-const Agradecimento = (props) =>{
+const Agradecimento = (props) => {
 
-    const sair = () =>{
+    const sair = () => {
         props.navigation.pop();
     }
 
-    setTimeout(sair,3000);
+    setTimeout(sair, 3000);
 
-    return(
+    return (
         <View style={st.containerTexo}>
             <Text style={st.texto}>
                 Obrigado por participar da pesquisa!
@@ -21,15 +21,15 @@ const Agradecimento = (props) =>{
 }
 
 const st = StyleSheet.create({
-    containerTexo:{
+    containerTexo: {
         display: 'flex',
-        flex: 1, 
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-evenly',
         backgroundColor: '#372775',
         padding: '12%'
     },
-    texto:{
+    texto: {
         fontSize: 30,
         color: 'white',
         fontFamily: 'AveriaLibre-Regular',

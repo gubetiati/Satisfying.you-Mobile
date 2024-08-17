@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const pesquisaSlice = createSlice({
+export const pesquisaSlice = createSlice({
   name: 'pesquisa',
   initialState: {
     pesquisaId: null, // Armazena o ID da pesquisa
   },
   reducers: {
     setPesquisaId: (state, action) => {
-      state.pesquisaId = action.payload;
+      state.pesquisaId = action.payload.pesquisaId;
     },
     clearPesquisaId: (state) => {
       state.pesquisaId = null;

@@ -11,7 +11,7 @@ const CustomDrawerContent = (props) => {
   const dispatch = useDispatch()
 
   const sair = () => {
-    dispatch(reducerSetLogin({email: null}))
+    dispatch(reducerSetLogin({ email: null }))
     props.navigation.popToTop()
   }
 
@@ -41,7 +41,7 @@ const CustomDrawerContent = (props) => {
               <Text style={st.labelDrawer}>Sair</Text>
             </View>
           )}
-          onPress={()=>{sair()}}
+          onPress={() => { sair() }}
         />
       </SafeAreaView>
     </DrawerContentScrollView>

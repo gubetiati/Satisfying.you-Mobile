@@ -1,24 +1,24 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-const Header = (props) =>{
-    const sair = () =>{
+const Header = (props) => {
+    const sair = () => {
         props.navigation.pop();
     }
 
-    return(
+    return (
         <View style={st.containerHeader}>
-            <TouchableOpacity onPress={()=>{sair()}}>
-                <Icon name="arrow-back" size={40} color="#573fba"/>
+            <TouchableOpacity onPress={() => { sair() }}>
+                <Icon name="arrow-back" size={40} color="#573fba" />
             </TouchableOpacity>
             <Text style={st.textoHeader}>{props.textoHeader}</Text>
         </View>
-        
+
     )
 }
 
 const st = StyleSheet.create({
-    containerHeader:{
+    containerHeader: {
         display: 'flex',
         flex: 1,
         flexDirection: 'row',
@@ -27,7 +27,7 @@ const st = StyleSheet.create({
         backgroundColor: '#2b1d62',
         paddingLeft: '1%',
     },
-    textoHeader:{
+    textoHeader: {
         fontSize: 24,
         color: 'white',
         marginLeft: '3%',

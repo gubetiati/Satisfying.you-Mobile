@@ -1,12 +1,12 @@
-import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
+import { View, Pressable, TextInput, Text, StyleSheet } from 'react-native';
 import Header from '../components/Header';
-import {useState} from 'react';
+import { useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import {auth} from "../config/firebase"
+import { auth } from "../config/firebase"
 
 const RecuperarSenha = (props) => {
 
-  const sair = () =>{
+  const sair = () => {
     props.navigation.pop();
   }
 
@@ -25,24 +25,24 @@ const RecuperarSenha = (props) => {
     }
   };
 
-  const resetSenha = ()=>{
-    sendPasswordResetEmail(auth,email)
-    .then((doc)=>{
-      console.log("Sucesso:  " + JSON.stringify(doc))
-      sair();
-    })
-    .catch((err)=>{
-      console.log("Erro: " + JSON.stringify(err.code))
-      if(err.code == 'auth/user-not-found'){
-        setAviso('Usuário não encontrado')
-      }
-    })
+  const resetSenha = () => {
+    sendPasswordResetEmail(auth, email)
+      .then((doc) => {
+        console.log("Sucesso:  " + JSON.stringify(doc))
+        sair();
+      })
+      .catch((err) => {
+        console.log("Erro: " + JSON.stringify(err.code))
+        if (err.code == 'auth/user-not-found') {
+          setAviso('Usuário não encontrado')
+        }
+      })
   }
 
   return (
     <View style={estilos.tela}>
       <View style={estilos.headerContainer}>
-        <Header textoHeader="Recuperação de senha" navigation={props.navigation}/>
+        <Header textoHeader="Recuperação de senha" navigation={props.navigation} />
       </View>
       <View style={estilos.containerEmail}>
         <View style={estilos.caixaDeTexto}>
