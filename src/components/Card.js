@@ -1,15 +1,19 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native'
 
-const Card = ({ onPress, image, titulo, data }) => {
+const Card = (props) => {
+
   return (
-    <TouchableOpacity onPress={onPress}>
+
+    <TouchableOpacity>
       <View style={st.card}>
-        <Image source={image} style={st.image} resizeMode='contain' />
-        <Text style={st.tituloCard}>{titulo}</Text>
-        <Text style={st.textoData}>{data}</Text>
+        <Image source={{uri: props.urlImagem}} style={st.image} resizeMode='contain' />
+        <Text style={st.tituloCard}>{props.nome}</Text>
+        <Text style={st.textoData}>{props.data}</Text>
       </View>
     </TouchableOpacity>
+    
+
   )
 }
 

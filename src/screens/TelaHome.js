@@ -1,5 +1,5 @@
-import { React, useEffect, useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, TextInput, ScrollView } from 'react-native';
+import { React, useEffect, useState} from 'react';
+import { View, TouchableOpacity, StyleSheet, Text, TextInput, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 import Popup from '../components/Popup'
@@ -8,6 +8,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { setPesquisaId } from '../../redux/pesquisaSlice';
 import { query, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../config/firebase';
+
 
 const TelaHome = () => {
   const navigation = useNavigation()
@@ -27,11 +28,15 @@ const TelaHome = () => {
       snap.forEach( (doc) =>{
         listaPesquisas.push({
           id: doc.id,
-          ...doc.data()
+          nome: doc.data().nome,
+          data: doc.data().data,
+          urlImagem: doc.data().linkImagem
+
         })
       })
+      console.log("Valores: " + JSON.stringify(listaPesquisas))
       if((listaPesquisas != '') || (listaPesquisas != null) || (listaPesquisas != undefined)){
-        setPesquisa(listaPesquisas[0])
+        setPesquisa(listaPesquisas)
       }
     })
   }, [])
@@ -52,40 +57,12 @@ const TelaHome = () => {
       </View>
 
       {/* Cards */}
-      <ScrollView
-        horizontal={true}
-        contentContainerStyle={st.containerCards}
-        showsHorizontalScrollIndicator={false}
-      >
-        <Card
-          onPress={() => navigation.navigate('AcoesPesquisa')}
-          image={require('../../assets/images/secomp.png')}
-          titulo='SECOMP 2023'
-          data='10/10/2023'
-        />
-
-        <Card
-          onPress={() => navigation.navigate('AcoesPesquisa')}
-          image={require('../../assets/images/ubuntu.png')}
-          titulo='UBUNTU 2022'
-          data='05/06/2022'
-        />
-
-        <Card
-          onPress={() => navigation.navigate('AcoesPesquisa')}
-          image={require('../../assets/images/meninas.png')}
-          titulo='MENINAS CPU'
-          data='01/04/2022'
-        />
-
-        <Card
-          onPress={() => navigation.navigate('AcoesPesquisa')}
-          image={require('../../assets/images/meninas.png')}
-          titulo='PESQUISA2'
-          data='23/04/2023'
-        />
-
-      </ScrollView>
+      
+      <FlatList 
+        data={pesquisa} 
+        renderItem={({item}) => <Card nome={item.nome} data={item.data} urlImagem={item.urlImagem} />} 
+        keyExtractor={(item) => item.id}
+        horizontal = {true}/>
 
       <View style={{ width: '95%', marginBottom: 10, height: '18%', justifyContent: 'center' }}>
         <TouchableOpacity
