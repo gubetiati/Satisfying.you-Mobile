@@ -5,6 +5,7 @@ import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch } from 'react-redux';
 import { reducerSetLogin } from '../../redux/loginSlice';
+import { clearPesquisaId } from '../../redux/pesquisaSlice';
 
 const CustomDrawerContent = (props) => {
 
@@ -12,6 +13,7 @@ const CustomDrawerContent = (props) => {
 
   const sair = () => {
     dispatch(reducerSetLogin({ email: null }))
+    dispatch(clearPesquisaId())
     props.navigation.popToTop()
   }
 

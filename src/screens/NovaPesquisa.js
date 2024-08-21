@@ -70,7 +70,7 @@ const NovaPesquisa = (props) => {
               nome: txtNome,
               data: txtData,
               linkImagem: url,
-              execelente: 0,
+              excelente: 0,
               bom: 0,
               neutro: 0,
               ruim: 0,

@@ -40,10 +40,6 @@ const TelaHome = () => {
     })
   }, [])
 
-  const pesq = useSelector((state) => state.pesquisa.pesquisaId);
-  console.log("\n\nState da pesquisa -> " + pesq)
-  //!MODIFICAR PESQUISA NÃO VAI FUNCIONAR CASO UMA PESQUISA NÃO TENHA SIDO CADASTRADA ANTES
-
   return (
     <View style={st.container}>
       <View style={st.barraPesquisa}>

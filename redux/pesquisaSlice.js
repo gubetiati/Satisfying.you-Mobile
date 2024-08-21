@@ -7,9 +7,7 @@ export const pesquisaSlice = createSlice({
   },
   reducers: {
     setPesquisaId: (state, action) => {
-      
       state.pesquisaId = action.payload.pesquisaId;
-      console.log("Slice pesquisa: " + JSON.stringify(action))
     },
     clearPesquisaId: (state) => {
       state.pesquisaId = null;

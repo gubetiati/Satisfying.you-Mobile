@@ -7,7 +7,7 @@ import { ptBR } from 'date-fns/locale';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateDoc, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
 import { db, storage } from '../config/firebase';
-import { ref, deleteObject, uploadBytes } from 'firebase/storage';
+import { ref, deleteObject, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { clearPesquisaId } from '../../redux/pesquisaSlice';
 import Popup from '../components/Popup';
 import Header from '../components/Header';
@@ -39,14 +39,15 @@ const ModificarPesquisa = (props) => {
     if (txtNome !== '' && txtData !== '') {
       const docRef = doc(db, email, pesquisaId);
       if (fotoAlterada == true) {
-        console.log("Foto alterada")
-        uploadImagem()
+        await uploadImagem(docRef)
+      } else {
+        await updateDoc(docRef, {
+          nome: txtNome,
+          data: txtData,
+          linkImagem: linkImagem,
+          nomeImagem: nomeFoto
+        });
       }
-      await updateDoc(docRef, {
-        nome: txtNome,
-        data: txtData,
-        linkImagem: linkImagem
-      });
       Alert.alert('Sucesso', 'Pesquisa modificada com sucesso');
       props.navigation.pop();
     } else {
@@ -59,7 +60,6 @@ const ModificarPesquisa = (props) => {
   };
 
   const excluirPesquisa = async () => {
-    console.log("\n\nexcluir pesquisa")
     try {
       const docRef = doc(db, email, pesquisaId);
 
@@ -74,11 +74,11 @@ const ModificarPesquisa = (props) => {
 
       dispatch(clearPesquisaId());
 
-      //Alert.alert('Sucesso', 'Pesquisa excluída com sucesso');
+      Alert.alert('Sucesso', 'Pesquisa excluída com sucesso');
       props.navigation.navigate('Home');
     } catch (error) {
       console.error('Erro ao excluir pesquisa: ', error);
-      //Alert.alert('Erro', 'Não foi possível excluir a pesquisa');
+      Alert.alert('Erro', 'Não foi possível excluir a pesquisa');
     }
   };
 
@@ -90,34 +90,34 @@ const ModificarPesquisa = (props) => {
     }
   };
 
-  const uploadImagem = async () => {//coloca a nova imagem e deleta a antiga
-    console.log("\n\n pre Upload 1")
+  const uploadImagem = async (docRef) => {//coloca a nova imagem e deleta a antiga
     const imageRef = ref(storage, `${email}/${nomeFoto}`)
     const file = await fetch(linkImagem)
     const blob = await file.blob()
-    console.log("\n\npre Upload 2")
-
-    uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
+    await uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
       .then((doc) => {
-        console.log("\n\nImagem enviada: " + JSON.stringify(doc))
-        setFotoAlterada(false)
+        console.log("\n\nImagem enviada: " + JSON.stringify(doc.ref))
         getDownloadURL(imageRef)
           .then((url) => {
-            console.log("Link da imagem: " + JSON.stringify(url))
-            setLinkImagem(url)
+            updateDoc(docRef,{
+              nome: txtNome,
+              data: txtData,
+              linkImagem: url,
+              nomeImagem: nomeFoto
+            })
           })
           .catch((err) => {
             console.log("\n\nProblema ao pegar o link: " + JSON.stringify(err))
           })
       })
       .catch((err) => {
-        setFotoAlterada(false)
+        Alert.alert('Erro', 'Erro ao enviar imagem, tente novamente');
         console.log("\n\nErro ao enviar imagem: " + JSON.stringify(err))
       })
     const imageRefAntiga = ref(storage, `${email}/${imagemAnterior}`)//referencia da imagem antiga
-    deleteObject(imageRefAntiga)
-      .then((doc) => {
-        console.log("\n\nImagem anterior deletada: " + JSON.stringify(doc))
+    await deleteObject(imageRefAntiga)
+      .then(() => {
+        console.log("\n\nImagem anterior deletada")
       })
       .catch((err) => {
         console.log("\n\nErro ao deletar imagem: " + JSON.stringify(err))
@@ -207,7 +207,7 @@ const ModificarPesquisa = (props) => {
             />
           </View>
 
-          <Botao texto="MODIFICAR" funcao={modificaDados} />
+          <Botao texto="MODIFICAR" funcao={()=>{modificaDados()}} />
           
         </View>
 

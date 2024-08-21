@@ -37,7 +37,6 @@ const Login = (props) => {
       entrar()
     } else {
       if (regexEmail.test(email) == false && senha == '') {
-        //console.log("\n\nState armazeado -> " + emailRedux)
         setAviso('E-mail e senha inválidos');
       } else if (senha == '') {
         setAviso('Senha inválida');
@@ -53,7 +52,7 @@ const Login = (props) => {
   const entrar = () => {//login usando o FB
     signInWithEmailAndPassword(auth, email, senha)
       .then((doc) => {
-        console.log("Sucesso:  " + JSON.stringify(doc))
+        console.log("Sucesso:  " + JSON.stringify(doc.user))
         dispatch(reducerSetLogin({ email: email }))//Armazena login
         setEmail('');
         setSenha('');

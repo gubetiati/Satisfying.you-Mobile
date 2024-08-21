@@ -8,9 +8,13 @@ const Facebutton = (props) => {
         props.navigation.navigate('Agradecimento');
     }
 
+
     return (
         <View>
-            <TouchableOpacity onPress={irParaAgradecimentos} style={st.touchableIcone}>
+            <TouchableOpacity onPress={()=>{
+                props.adicionar()
+                irParaAgradecimentos()
+            }} style={st.touchableIcone}>
                 <Icon name={props.nomeIcone} size={70} color={props.corIcone} />
                 <Text style={st.textoIcone}>{props.textoIcone}</Text>
             </TouchableOpacity>
