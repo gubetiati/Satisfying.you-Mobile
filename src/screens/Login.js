@@ -105,7 +105,7 @@ const Login = (props) => {
         <View style={estilos.containerEntrar}>
           {
             !isLoading ?
-              <Pressable style={estilos.botaoEntrar}>
+              <Pressable style={estilos.botaoEntrar} onPress={verifica}>
                 <Text Text style={estilos.texto} onPress={verifica}>
                   Entrar
                 </Text>
