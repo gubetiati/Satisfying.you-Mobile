@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import Popup from '../components/Popup'
 import Card from '../components/Card'
 import { useSelector, useDispatch} from 'react-redux';
-import { setPesquisaId } from '../../redux/pesquisaSlice';
 import { query, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -41,7 +40,6 @@ const TelaHome = () => {
     })
   }, [])
 
-  dispatch(setPesquisaId({pesquisaId: pesquisa.id}))
   const pesq = useSelector((state) => state.pesquisa.pesquisaId);
   console.log("\n\nState da pesquisa -> " + pesq)
   //!MODIFICAR PESQUISA NÃO VAI FUNCIONAR CASO UMA PESQUISA NÃO TENHA SIDO CADASTRADA ANTES
@@ -60,7 +58,7 @@ const TelaHome = () => {
       
       <FlatList 
         data={pesquisa} 
-        renderItem={({item}) => <Card nome={item.nome} data={item.data} urlImagem={item.urlImagem} />} 
+        renderItem={({item}) => <Card id={item.id} nome={item.nome} data={item.data} urlImagem={item.urlImagem} />} 
         keyExtractor={(item) => item.id}
         horizontal = {true}/>
 

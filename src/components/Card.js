@@ -1,13 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { setPesquisaId } from '../../redux/pesquisaSlice'
+import { useNavigation } from '@react-navigation/native'
+
+
 
 const Card = (props) => {
 
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const [idPesquisa, setIdPesquisa] = useState(props.id)
+
+  
+  const goToAcoes = () => {
+    dispatch(setPesquisaId({pesquisaId: idPesquisa}))
+    navigation.navigate('AcoesPesquisa')
+  }
+
+ 
   return (
 
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => {
+      
+      goToAcoes()
+      }}>
       <View style={st.card}>
-        <Image source={{uri: props.urlImagem}} style={st.image} resizeMode='contain' />
+        <Image source={{uri: props.urlImagem}} style={st.image} />
         <Text style={st.tituloCard}>{props.nome}</Text>
         <Text style={st.textoData}>{props.data}</Text>
       </View>

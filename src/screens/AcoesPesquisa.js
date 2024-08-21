@@ -2,10 +2,12 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 import Header from '../components/Header';
+import { useSelector } from 'react-redux';
 
 const AcoesPesquisa = (props) => {
   const navigation = useNavigation()
-
+  const id = useSelector((state) => state.pesquisa.pesquisaId)
+  console.log("\nAcões pesquisa: " + id)
   return (
 
     <View style={estilos.container}>
