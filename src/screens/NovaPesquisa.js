@@ -25,6 +25,7 @@ const NovaPesquisa = (props) => {
 
   const [txtValNome, setValNome] = useState('');
   const [txtValData, setValData] = useState('');
+  const [txtValImagem, setValImagem] = useState('')
 
   const [urlFoto, setUrlFoto] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -35,12 +36,14 @@ const NovaPesquisa = (props) => {
   const salvaDados = () => {
     setValNome('');
     setValData('');
+    setValImagem('');
 
-    if (txtNome !== '' && txtData !== '') {
+    if (txtNome !== '' && txtData !== '' && urlFoto !== '') {
       adicionarPesquisa();
     } else {
       if (txtNome === '') setValNome('Preencha o nome da pesquisa');
       if (txtData === '') setValData('Preencha a data');
+      if (urlFoto === '') setValImagem('Insira uma imagem')
     }
   };
 
@@ -165,7 +168,7 @@ const NovaPesquisa = (props) => {
 
           <View style={estilos.containerImagem}>
             <Text style={estilos.texto}>Imagem:</Text>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', gap: 10 }}>
               <TouchableOpacity onPress={() => { escolherFoto() }}>
                 <View style={estilos.imagem}>
                   {
@@ -177,6 +180,7 @@ const NovaPesquisa = (props) => {
                   }
                 </View>
               </TouchableOpacity>
+              <Text style={estilos.textoVal}>{txtValImagem}</Text>
             </View>
           </View>
         </View>

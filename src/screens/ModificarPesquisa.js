@@ -21,6 +21,7 @@ const ModificarPesquisa = (props) => {
 
   const [txtValNome, setValNome] = useState('')
   const [txtValData, setValData] = useState('')
+  const [txtValImagem, setValImagem] = useState('')
 
   const [modalVisible, setModalVisible] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -56,6 +57,9 @@ const ModificarPesquisa = (props) => {
       
       if(txtData == '')
         setValData("Preencha a data")
+
+      if(linkImagem == '')
+        setValImagem("Insira uma imagem")
     }
   };
 
@@ -193,14 +197,17 @@ const ModificarPesquisa = (props) => {
 
             <View style={estilos.containerImagem}>
               <Text style={estilos.texto}>Imagem:</Text>
-              <TouchableOpacity onPress={() => { escolherFoto() }} style={estilos.imagem}>
-                {
-                  linkImagem ?
-                    <Image source={{ uri: linkImagem }} style={{ width: '100%', height: '100%', alignSelf: 'center' }} />
-                    :
-                    null
-                }
-              </TouchableOpacity>
+              <View style={{ flexDirection: 'row', gap: 10 }}>
+                <TouchableOpacity onPress={() => { escolherFoto() }} style={estilos.imagem}>
+                  {
+                    linkImagem ?
+                      <Image source={{ uri: linkImagem }} style={{ width: '100%', height: '100%', alignSelf: 'center' }} />
+                      :
+                      null
+                  }
+                </TouchableOpacity>
+                <Text style={estilos.textoVal}>{txtValImagem}</Text>
+              </View>
             </View>
             <Popup
               modalVisible={modalVisible}
