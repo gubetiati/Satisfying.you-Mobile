@@ -52,11 +52,17 @@ const TelaHome = () => {
 
       {/* Cards */}
       
-      <FlatList 
+      {pesquisa.length === 0 ? (
+        <Text style={st.mensagemVazia}>Não há pesquisas cadastradas</Text>
+      ) : (
+        <FlatList
         data={pesquisa} 
         renderItem={({item}) => <Card id={item.id} nome={item.nome} data={item.data} urlImagem={item.urlImagem} />} 
         keyExtractor={(item) => item.id}
         horizontal = {true}/>
+      )}
+
+      
 
       <View style={{ width: '95%', marginBottom: 10, height: '18%', justifyContent: 'center' }}>
         <TouchableOpacity
@@ -105,6 +111,14 @@ const st = StyleSheet.create({
     paddingBottom: 7,
     fontFamily: 'AveriaLibre-Regular',
     fontSize: 18,
+  },
+  mensagemVazia: {
+    flex: 1,
+    paddingBottom: 7,
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 27,
+    color: 'white',
+    marginTop: '4.5%'
   },
   icon: {
     width: '20%',
