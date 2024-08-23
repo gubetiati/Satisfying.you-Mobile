@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateDoc, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
+import { updateDoc, deleteDoc, doc, onSnapshot, getDoc } from 'firebase/firestore';
 import { db, storage } from '../config/firebase';
 import { ref, deleteObject, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { clearPesquisaId } from '../../redux/pesquisaSlice';
@@ -63,7 +63,7 @@ const ModificarPesquisa = (props) => {
     try {
       const docRef = doc(db, email, pesquisaId);
 
-      const pesquisaDoc = await docRef.get();
+      const pesquisaDoc = await getDoc(docRef);
       const imageUrl = pesquisaDoc.data().linkImagem;
       if (imageUrl) {
         const imageRef = ref(storage, imageUrl);
@@ -127,10 +127,12 @@ const ModificarPesquisa = (props) => {
   useEffect(() => {//pega todos os dados da pesquisa atual
     const pesquisaRef = doc(db, email, pesquisaId);
     const unsubscribe = onSnapshot(pesquisaRef, (snap) => {
-      setNome(snap.data().nome)
-      setData(snap.data().data)
-      setLinkImagem(snap.data().linkImagem)
-      setImagemAnterior(snap.data().nomeImagem)//nome da imagem antiga para possivel exclusão da mesma em caso de alteração
+      if(snap.exists()){
+        setNome(snap.data().nome)
+        setData(snap.data().data)
+        setLinkImagem(snap.data().linkImagem)
+        setImagemAnterior(snap.data().nomeImagem)//nome da imagem antiga para possivel exclusão da mesma em caso de alteração
+      }
     })
   }, [])
 
@@ -220,7 +222,11 @@ const ModificarPesquisa = (props) => {
 
       </View>
       {/* Pop-up para apagar pesquisa*/}
-      <Popup modalVisible={modalVisible} setModalVisible={setModalVisible} navigation={props.navigation} />
+      <Popup 
+      modalVisible={modalVisible} 
+      setModalVisible={setModalVisible} 
+      navigation={props.navigation}
+      onConfirm={() => excluirPesquisa()} />
     </View>
   )
 
