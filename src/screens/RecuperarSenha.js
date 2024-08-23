@@ -28,11 +28,11 @@ const RecuperarSenha = (props) => {
   const resetSenha = () => {
     sendPasswordResetEmail(auth, email)
       .then((doc) => {
-        console.log("Sucesso:  " + JSON.stringify(doc))
+        console.log("Sucesso ao recuperar senha")
         sair();
       })
       .catch((err) => {
-        console.log("Erro: " + JSON.stringify(err.code))
+        console.log("Erro ao recuperar senha: " + JSON.stringify(err.code))
         if (err.code == 'auth/user-not-found') {
           setAviso('Usuário não encontrado')
         }

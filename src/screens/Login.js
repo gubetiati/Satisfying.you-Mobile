@@ -52,7 +52,7 @@ const Login = (props) => {
   const entrar = () => {//login usando o FB
     signInWithEmailAndPassword(auth, email, senha)
       .then((doc) => {
-        console.log("Sucesso:  " + JSON.stringify(doc.user))
+        console.log("Sucesso no login:  " + JSON.stringify(doc.user))
         dispatch(reducerSetLogin({ email: email }))//Armazena login
         setEmail('');
         setSenha('');

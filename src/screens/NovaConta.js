@@ -39,16 +39,14 @@ const NovaConta = (props) => {
   const criarConta = () => {
     createUserWithEmailAndPassword(auth, email, senha)
       .then((doc) => {
-        console.log("Sucesso:  " + JSON.stringify(doc))
-        criarCollection();
+        console.log("Sucesso ao criar conta:  " + JSON.stringify(doc))
         sair();
       })
       .catch((err) => {
         if (err.code == 'auth/email-already-in-use') {
-          console.log('ERRO ENCONTRADO')
           setAviso('E-mail já cadastrado')
         }
-        console.log("Erro: " + JSON.stringify(err.code))
+        console.log("Erro ao criar conta: " + JSON.stringify(err.code))
 
       })
   }
