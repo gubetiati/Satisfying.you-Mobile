@@ -1,25 +1,24 @@
-import { View, Pressable, TextInput, Text, StyleSheet } from 'react-native';
+import {View, Pressable, TextInput, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useState } from 'react'
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from "../config/firebase"
-import { useDispatch } from 'react-redux';
-import { reducerSetLogin } from '../../redux/loginSlice';
-import { ActivityIndicator } from 'react-native-paper';
+import {useState} from 'react';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../config/firebase.js';
+import {useDispatch} from 'react-redux';
+import {reducerSetLogin} from '../../redux/loginSlice';
+import {ActivityIndicator} from 'react-native-paper';
 
-const Login = (props) => {
-
+const Login = props => {
   const irParaNovaConta = () => {
     props.navigation.navigate('NovaConta');
-  }
+  };
 
   const irParaRecuperarSenha = () => {
     props.navigation.navigate('RecuperarSenha');
-  }
+  };
 
   const irParaHome = () => {
     props.navigation.navigate('Home');
-  }
+  };
 
   const [email, setEmail] = useState('defowen776@segichen.com');
   const [senha, setSenha] = useState('abcd1234');
@@ -34,7 +33,7 @@ const Login = (props) => {
       let regSenha = senha;
       //console.log(regEmail, regSenha);
       setAviso(' ');
-      entrar()
+      entrar();
     } else {
       if (regexEmail.test(email) == false && senha == '') {
         setAviso('E-mail e senha inválidos');
@@ -47,19 +46,20 @@ const Login = (props) => {
     }
   };
 
-  const dispatch = useDispatch()//usado pelo reduxer, dispara funções
+  const dispatch = useDispatch(); //usado pelo reduxer, dispara funções
 
-  const entrar = () => {//login usando o FB
+  const entrar = () => {
+    //login usando o FB
     signInWithEmailAndPassword(auth, email, senha)
-      .then((doc) => {
-        console.log("Sucesso no login:  " + JSON.stringify(doc.user))
-        dispatch(reducerSetLogin({ email: email }))//Armazena login
+      .then(doc => {
+        console.log('Sucesso no login:  ' + JSON.stringify(doc.user));
+        dispatch(reducerSetLogin({email: email})); //Armazena login
         setEmail('');
         setSenha('');
         irParaHome();
       })
-      .catch((err) => {
-        console.log("Erro: " + JSON.stringify(err.code))
+      .catch(err => {
+        console.log('Erro: ' + JSON.stringify(err.code));
         if (err.code == 'auth/wrong-password') {
           setAviso('E-mail ou senha inválidos');
         } else {
@@ -68,9 +68,8 @@ const Login = (props) => {
       })
       .finally(() => {
         setisLoading(false);
-      })
-  }
-
+      });
+  };
 
   return (
     <View style={estilos.tela}>
@@ -102,22 +101,29 @@ const Login = (props) => {
           <Text style={estilos.warning}>{aviso}</Text>
         </View>
         <View style={estilos.containerEntrar}>
-          {
-            !isLoading ?
-              <Pressable style={estilos.botaoEntrar} onPress={verifica}>
-                <Text Text style={estilos.texto} onPress={verifica}>
-                  Entrar
-                </Text>
-              </Pressable>
-              :
-              <Pressable style={estilos.botaoEntrar} disabled={true} >
-                <ActivityIndicator style={{ alignSelf: 'center', marginTop: '3%' }} color='white' size={18} />
-                <Text Text style={estilos.texto} onPress={()=>{verifica()}}>
-                  {/*Autenticando*/}
-                </Text>
-              </Pressable>
-          }
-
+          {!isLoading ? (
+            <Pressable style={estilos.botaoEntrar} onPress={verifica}>
+              <Text Text style={estilos.texto} onPress={verifica}>
+                Entrar
+              </Text>
+            </Pressable>
+          ) : (
+            <Pressable style={estilos.botaoEntrar} disabled={true}>
+              <ActivityIndicator
+                style={{alignSelf: 'center', marginTop: '3%'}}
+                color="white"
+                size={18}
+              />
+              <Text
+                Text
+                style={estilos.texto}
+                onPress={() => {
+                  verifica();
+                }}>
+                {/*Autenticando*/}
+              </Text>
+            </Pressable>
+          )}
         </View>
       </View>
       <View style={estilos.containerBtn}>
@@ -199,7 +205,7 @@ const estilos = StyleSheet.create({
   warning: {
     color: '#FD7979',
     fontSize: 10,
-    fontFamily: 'AveriaLibre-Regular'
+    fontFamily: 'AveriaLibre-Regular',
   },
   containerEntrar: {
     display: 'flex',

@@ -1,34 +1,41 @@
 import React from 'react';
-import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { Divider } from 'react-native-paper';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import {Divider} from 'react-native-paper';
+import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useDispatch } from 'react-redux';
-import { reducerSetLogin } from '../../redux/loginSlice';
-import { clearPesquisaId } from '../../redux/pesquisaSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {reducerSetLogin} from '../../redux/loginSlice';
+import {clearPesquisaId} from '../../redux/pesquisaSlice';
 
-const CustomDrawerContent = (props) => {
+const CustomDrawerContent = props => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  //Usada para mostrar o email do usuário
+  const loggedUser = useSelector(state => state.login.email);
 
   const sair = () => {
-    dispatch(reducerSetLogin({ email: null }))
-    dispatch(clearPesquisaId())
-    props.navigation.popToTop()
-  }
+    dispatch(reducerSetLogin({email: null}));
+    dispatch(clearPesquisaId());
+    props.navigation.popToTop();
+  };
 
   return (
     <DrawerContentScrollView {...props}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ alignItems: 'center' }}>
-          <Text style={st.textoEmail}>usuario@dominio.com</Text>
-          <Divider style={st.divider} theme={{ colors: { primary: 'white' } }} />
+      <SafeAreaView style={{flex: 1}}>
+        <View style={{alignItems: 'center'}}>
+          <Text style={st.textoEmail}>{loggedUser}</Text>
+          <Divider style={st.divider} theme={{colors: {primary: 'white'}}} />
         </View>
 
         <DrawerItem
           label={() => (
             <View style={st.itemDrawer}>
-              <Icon name="description" size={30} color="white" style={{ marginRight: 10 }} />
+              <Icon
+                name="description"
+                size={30}
+                color="white"
+                style={{marginRight: 10}}
+              />
               <Text style={st.labelDrawer}>Pesquisas</Text>
             </View>
           )}
@@ -36,14 +43,21 @@ const CustomDrawerContent = (props) => {
         />
 
         <DrawerItem
-          style={{ marginTop: '63%' }}
+          style={{marginTop: '63%'}}
           label={() => (
             <View style={st.footer}>
-              <Icon name="logout" size={30} color="white" style={{ marginRight: 10 }} />
+              <Icon
+                name="logout"
+                size={30}
+                color="white"
+                style={{marginRight: 10}}
+              />
               <Text style={st.labelDrawer}>Sair</Text>
             </View>
           )}
-          onPress={() => { sair() }}
+          onPress={() => {
+            sair();
+          }}
         />
       </SafeAreaView>
     </DrawerContentScrollView>
