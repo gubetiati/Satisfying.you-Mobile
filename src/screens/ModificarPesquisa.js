@@ -49,7 +49,7 @@ const ModificarPesquisa = (props) => {
           nomeImagem: nomeFoto
         });
       }
-      Alert.alert('Sucesso', 'Pesquisa modificada com sucesso');
+      //Alert.alert('Sucesso', 'Pesquisa modificada com sucesso');
       props.navigation.pop();
     } else {
       if(txtNome == '')
@@ -78,11 +78,11 @@ const ModificarPesquisa = (props) => {
 
       dispatch(clearPesquisaId());
 
-      Alert.alert('Sucesso', 'Pesquisa excluída com sucesso');
+      //Alert.alert('Sucesso', 'Pesquisa excluída com sucesso');
       props.navigation.navigate('Home');
     } catch (error) {
       console.error('Erro ao excluir pesquisa: ', error);
-      Alert.alert('Erro', 'Não foi possível excluir a pesquisa');
+      //Alert.alert('Erro', 'Não foi possível excluir a pesquisa');
     }
   };
 
@@ -115,7 +115,7 @@ const ModificarPesquisa = (props) => {
           })
       })
       .catch((err) => {
-        Alert.alert('Erro', 'Erro ao enviar imagem, tente novamente');
+        //Alert.alert('Erro', 'Erro ao enviar imagem, tente novamente');
         console.log("\n\nErro ao enviar imagem: " + JSON.stringify(err))
       })
     const imageRefAntiga = ref(storage, `${email}/${imagemAnterior}`)//referencia da imagem antiga

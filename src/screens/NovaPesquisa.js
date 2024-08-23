@@ -47,11 +47,23 @@ const NovaPesquisa = (props) => {
     }
   };
 
+  const makeId = (length) => {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+  }
+
   const escolherFoto = () => {
     launchImageLibrary()
       .then((result) => {
         setUrlFoto(result.assets[0].uri); // Recebe o endereço da imagem
-        setNomeImagem(result.assets[0].fileName);
+        setNomeImagem(makeId(5));
       })
       .catch((err) => {
         console.log('\n\nErro ao abrir a câmera -> ' + JSON.stringify(err));
