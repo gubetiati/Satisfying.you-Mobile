@@ -58,8 +58,8 @@ const RecuperarSenha = (props) => {
         </View>
       </View>
       <View style={estilos.containerEntrar}>
-        <Pressable style={estilos.botaoEntrar}>
-          <Text style={estilos.texto} onPress={verifica}>
+        <Pressable style={estilos.botaoEntrar} onPress={()=>{verifica()}}>
+          <Text style={estilos.texto}>
             RECUPERAR
           </Text>
         </Pressable>

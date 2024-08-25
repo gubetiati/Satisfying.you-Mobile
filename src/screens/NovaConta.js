@@ -90,7 +90,7 @@ const NovaConta = (props) => {
         </View>
       </View>
       <View style={estilos.containerEntrar}>
-        <Pressable style={estilos.botaoEntrar} onPress={verifica}>
+        <Pressable style={estilos.botaoEntrar} onPress={()=>{verifica()}}>
           <Text style={estilos.texto}>CADASTRAR</Text>
         </Pressable>
       </View>

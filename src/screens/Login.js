@@ -102,8 +102,8 @@ const Login = props => {
         </View>
         <View style={estilos.containerEntrar}>
           {!isLoading ? (
-            <Pressable style={estilos.botaoEntrar} onPress={verifica}>
-              <Text Text style={estilos.texto} onPress={verifica}>
+            <Pressable style={estilos.botaoEntrar} onPress={()=>{verifica()}}>
+              <Text Text style={estilos.texto}>
                 Entrar
               </Text>
             </Pressable>
@@ -128,12 +128,12 @@ const Login = props => {
       </View>
       <View style={estilos.containerBtn}>
         <View style={estilos.btnBox}>
-          <Pressable style={estilos.botaoCad} onPress={irParaNovaConta}>
+          <Pressable style={estilos.botaoCad} onPress={()=>{irParaNovaConta()}}>
             <Text style={estilos.texto}>Criar minha conta</Text>
           </Pressable>
         </View>
         <View style={estilos.btnBox}>
-          <Pressable style={estilos.botaoSenha} onPress={irParaRecuperarSenha}>
+          <Pressable style={estilos.botaoSenha} onPress={()=>{irParaRecuperarSenha()}}>
             <Text style={estilos.texto}>Esqueci minha senha</Text>
           </Pressable>
         </View>
